@@ -8,7 +8,7 @@ date: 2026-05-31 14:27:50
 password:
 summary: 斯坦福 CS231n Lecture2 笔记，涵盖 KNN 分类器、超参数调优策略、线性分类器原理及损失函数（SVM 与 Softmax）。
 tags: [CS231n, 计算机视觉, 深度学习]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
 ## 图像分类 Image Classification

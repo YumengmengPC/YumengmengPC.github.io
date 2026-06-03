@@ -1,6 +1,7 @@
 menu:
   home: / || home
   friends: /friends/ || heart
+  about: /about/ || user
 
 homeConfig:
   fixedCover: /images/photo1.jpg
