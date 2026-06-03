@@ -1,3 +1,26 @@
+menu:
+  home: / || home
+  friends: /friends/ || heart
+
+homeConfig:
+  fixedCover: /images/photo1.jpg
+  coverConfig:
+    enableCover: true
+
+reward:
+  enable: true
+  account:
+    wechatpay: /wechatpay.png
+
+social:
+  github: https://github.com/YumengmengPC || github || "#191717"
+  email: mailto:yumengmeng1026@gmail.com || envelope || "#55acd5"
+
+waline:
+  enable: false
+  serverURL: "https://yumengmeng-pc-github-inr7hvj04-yumengmengpcs-projects.vercel.app"
+  pageview: true
+
 footer:
  since: 2026
  powered: true
