@@ -26,3 +26,5 @@ comments: true
 - GitHub: [YumengmengPC](https://github.com/YumengmengPC) （尚未开发什么项目，目前处于学习阶段）
 - Email: yumengmeng1026@gmail.com （交流可发邮件，备注来意）
 
+{% githubStats %}
+
