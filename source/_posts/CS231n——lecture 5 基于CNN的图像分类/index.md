@@ -5,7 +5,7 @@ toc: true
 mathjax: true
 date: 2026-06-02 16:58:43
 password:
-summary: 斯坦福 CS231n Lecture 5 笔记，涵盖从全连接到卷积的过渡、卷积层（滤波器/步幅/填充/感受野）、池化层，以及卷积神经网络架构的设计原则。
+description: 斯坦福 CS231n Lecture 5 笔记，涵盖从全连接到卷积的过渡、卷积层（滤波器/步幅/填充/感受野）、池化层，以及卷积神经网络架构的设计原则。
 tags: [CS231n, 计算机视觉, 深度学习, 卷积神经网络, CNN]
 categories: [CS231n学习笔记]
 ---
