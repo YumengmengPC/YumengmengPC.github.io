@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 6 卷积神经网络架构
 top: false
-cover: false
+cover: images/cover_lecture6.jpg
 toc: true
 mathjax: true
 date: 2026-06-03 10:00:00
