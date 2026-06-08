@@ -1,12 +1,12 @@
 ---
-title: CS231n——Lecture3 正则化与优化
+title: CS231n——Lecture 3 正则化与优化
 top: false
 cover: images/cover_lecture3.jpg
 toc: true
 mathjax: true
 date: 2026-05-31 15:27:56
 password:
-summary: 斯坦福 CS231n Lecture3 笔记，涵盖 L1/L2/Elastic Net 正则化方法及其重要性，以及从梯度下降到 AdamW 的完整优化算法演进路线。
+summary: 斯坦福 CS231n Lecture 3 笔记，涵盖 L1/L2/Elastic Net 正则化方法及其重要性，以及从梯度下降到 AdamW 的完整优化算法演进路线。
 tags: [CS231n, 计算机视觉, 深度学习, 正则化, 优化算法]
 categories: [CS231n学习笔记]
 ---

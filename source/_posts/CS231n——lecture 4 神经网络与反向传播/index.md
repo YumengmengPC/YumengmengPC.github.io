@@ -1,12 +1,12 @@
 ---
-title: CS231n——Lecture4 神经网络与反向传播
+title: CS231n——Lecture 4 神经网络与反向传播
 top: false
 cover: images/cover_lecture4.jpg
 toc: true
 mathjax: true
 date: 2026-06-02 13:06:16
 password:
-summary: 斯坦福 CS231n Lecture4 笔记，涵盖从线性分类器到双层神经网络的过渡、激活函数的必要性与选型、计算图与反向传播机制（链式法则、门模式、向量化梯度），以及模型容量与正则化的权衡。
+summary: 斯坦福 CS231n Lecture 4 笔记，涵盖从线性分类器到双层神经网络的过渡、激活函数的必要性与选型、计算图与反向传播机制（链式法则、门模式、向量化梯度），以及模型容量与正则化的权衡。
 tags: [CS231n, 计算机视觉, 深度学习, 神经网络, 反向传播]
 categories: [CS231n学习笔记]
 ---

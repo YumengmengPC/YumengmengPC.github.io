@@ -1,16 +1,16 @@
 ---
-title: CS231n——Lecture5 基于CNN的图像分类
+title: CS231n——Lecture 5 基于CNN的图像分类
 top: false
 toc: true
 mathjax: true
 date: 2026-06-02 16:58:43
 password:
-summary: 斯坦福 CS231n Lecture5 笔记，涵盖从全连接到卷积的过渡、卷积层（滤波器/步幅/填充/感受野）、池化层，以及卷积神经网络架构的设计原则。
+summary: 斯坦福 CS231n Lecture 5 笔记，涵盖从全连接到卷积的过渡、卷积层（滤波器/步幅/填充/感受野）、池化层，以及卷积神经网络架构的设计原则。
 tags: [CS231n, 计算机视觉, 深度学习, 卷积神经网络, CNN]
 categories: [CS231n学习笔记]
 ---
 
-## 第一部分回顾：深度学习基础（Lecture2—Lecture4）
+## 第一部分回顾：深度学习基础（Lecture 2—Lecture 4）
 
 在进入卷积网络之前，先回顾前几讲建立的深度学习基础框架。
 
