@@ -83,7 +83,7 @@ Transformer 已经是现在深度学习最常使用的架构。最初为机器�
 
 类比数据库检索：你有一个查询 Q，每个数据项有一个键 K 用于匹配、一个值 V 作为检索内容。Q 跟所有 K 比一下相似度 → softmax 得到权重 → 用权重把 V 组合起来 → 输出。
 
-![Scaled Dot-Product Attention](https://arxiv.org/html/1706.03762v7/Figures/ModalNet-19.png)
+![Scaled Dot-Product Attention](/images/arxiv_attention_scaled_dot.png)
 
 ### K 和 V 从哪里来？
 
@@ -160,7 +160,7 @@ $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
 每个头独立算一遍注意力，然后把各头的输出拼接起来，再经过一个线性投影融合。
 
-![Multi-Head Attention](https://arxiv.org/html/1706.03762v7/Figures/ModalNet-20.png)
+![Multi-Head Attention](/images/arxiv_attention_multihead.png)
 
 $$\text{MultiHead}(X) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \cdot W_O$$
 
@@ -197,7 +197,7 @@ RNN 的痛点是并行——每个时间步依赖上一步的结果，整条序�
 3. **逐位置前馈网络 / MLP**（每个位置独立做非线性变换）
 4. **残差连接 + LayerNorm**
 
-![Transformer 完整架构](https://arxiv.org/html/1706.03762v7/Figures/ModalNet-21.png)
+![Transformer 完整架构](/images/arxiv_transformer_arch.png)
 
 ![Transformer Block 内部的残差连接与 LayerNorm](/images/transformer_block_detail.png)
 
