@@ -99,11 +99,8 @@ ignore:
 theme: shokax
 
 # Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: 'git'
-  repo: git@github.com:YumengmengPC/YumengmengPC.github.io.git
-  branch: main
+## 部署由 Vercel 自动完成：推送到 main 分支后 Vercel 会自动 hexo generate 并发布。
+## 不再使用 hexo-deployer-git 推送静态文件，仓库只保留 main 一个源码分支。
 
 markdown:
   render: # 渲染器设置
