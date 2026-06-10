@@ -26,5 +26,11 @@
     "hexo-theme-shokax": "^0.5.4",
     "nyx-player": "^0.1.1",
     "shokax-uikit": "^0.0.5"
+  },
+  "overrides": {
+    "hexo-feed": {
+      "hexo": "^8.0.0"
+    },
+    "markdown-it": "^14.1.1"
   }
 }

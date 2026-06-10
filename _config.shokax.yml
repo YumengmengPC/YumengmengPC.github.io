@@ -1,4 +1,12 @@
 alternate: Yumengmeng's blog # 站点大标题
+title: AI浪潮下的小小避风港
+description: '只要不停下脚步，道路就会一直延伸'
+language: zh-CN
+keywords:
+  - AI
+  - 深度学习
+  - 计算机视觉
+  - CS231n
 
 menu:
   home: / || home
