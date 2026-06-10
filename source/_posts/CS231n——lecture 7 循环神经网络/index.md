@@ -6,7 +6,7 @@ toc: true
 mathjax: true
 date: 2026-06-08 10:00:00
 password:
-description: 斯坦福 CS231n Lecture 7 笔记，涵盖 RNN 的序列建模思想、Vanilla RNN 公式推导与 BPTT 训练、字符级语言模型实例、梯度消失/爆炸的数学直觉、LSTM 门控机制与细胞状态高速公路，以及 Mamba 等现代状态空间模型的动机。
+description: CS231n Lecture 7 笔记，涵盖 RNN 的序列建模思想、Vanilla RNN 公式推导与 BPTT 训练、字符级语言模型实例、梯度消失/爆炸的数学直觉、LSTM 门控机制与细胞状态高速公路，以及 Mamba 等现代状态空间模型的动机。
 tags: [CS231n, 计算机视觉, 深度学习, RNN, LSTM, 序列建模, Mamba]
 categories: [学习笔记]
 ---
