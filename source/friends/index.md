@@ -35,4 +35,11 @@ comments: true
   image: https://i1.vh.gs/2025/11/25/6925b04d8ca2b.jpg
   owner: lbyxiaolizi
   color: "#4285F4"
+
+- site: 淡air的小窝
+  url: https://air3912.cn
+  image: https://q1.qlogo.cn/g?b=qq&nk=2180327166&s=640
+  desc: air而已，无需在意
+  owner: 淡air
+  color: "#4285F4"
 {% endlinks %}

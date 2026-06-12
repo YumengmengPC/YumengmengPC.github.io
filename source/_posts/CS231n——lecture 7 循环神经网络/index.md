@@ -4,7 +4,7 @@ top: false
 cover: false
 toc: true
 mathjax: true
-date: 2026-06-08 10:00:00
+date: 2026-06-08 14:19:31
 password:
 description: CS231n Lecture 7 笔记，涵盖 RNN 的序列建模思想、Vanilla RNN 公式推导与 BPTT 训练、字符级语言模型实例、梯度消失/爆炸的数学直觉、LSTM 门控机制与细胞状态高速公路，以及 Mamba 等现代状态空间模型的动机。
 tags: [CS231n, 计算机视觉, 深度学习, RNN, LSTM, 序列建模, Mamba]
@@ -15,7 +15,7 @@ categories: [学习笔记]
 
 ---
 
-## 从"一对一"到序列建模
+## 序列建模范式 Sequence Modeling Paradigms
 
 回顾一下普通神经网络（"Vanilla" Neural Network）的工作方式：输入一个固定大小的向量，输出一个固定大小的向量——**one to one**。
 
@@ -32,7 +32,7 @@ categories: [学习笔记]
 
 ---
 
-## RNN 的核心：隐藏状态
+## 循环神经网络隐藏状态 RNN Hidden State
 
 RNN 区别于普通网络的关键，是它维护了一个**内部状态**（hidden state），随着序列的推进不断更新。
 
@@ -58,7 +58,7 @@ $$y_t = f_{W_{hy}}(h_t)$$
 
 ---
 
-## Vanilla RNN 的数学公式
+## 基础 RNN 数学公式 Vanilla RNN Formulation
 
 最简单的 RNN——被称为 Vanilla RNN——长这样：
 
@@ -85,7 +85,7 @@ $$y_t = W_{hy} h_t$$
 
 ---
 
-## 一个具体例子：字符级语言模型
+## 字符级语言模型 Character-Level Language Model
 
 以字符串 "hello" 为例，假设词表只有四个字母：`V = {h, e, l, o}`。每个字符用 one-hot 编码：
 
@@ -117,7 +117,7 @@ One-hot 向量非常稀疏，所以通常先过一层**嵌入层**（embedding l
 
 ---
 
-## 怎么训练：BPTT
+## 随时间反向传播 Backpropagation Through Time
 
 RNN 的训练用**时间反向传播**（Backpropagation Through Time, BPTT）。思路很简单：把 RNN 沿时间轴展开成一个"深层"前馈网络，然后用链式法则往回传梯度。
 
@@ -135,7 +135,7 @@ $$\frac{\partial L}{\partial W_{hh}} = \sum_t \frac{\partial L_t}{\partial W_{hh
 
 ---
 
-## 隐藏状态里藏着什么？
+## 隐藏状态可解释性 Hidden State Interpretability
 
 一个有趣的现象：训练好的字符级 RNN，如果去检查各个隐藏神经元的激活模式，会发现它们自动学会了**可解释的功能**：
 
@@ -148,7 +148,7 @@ $$\frac{\partial L}{\partial W_{hh}} = \sum_t \frac{\partial L_t}{\partial W_{hh
 
 ---
 
-## RNN 的优缺点
+## 循环神经网络优缺点 RNN Pros and Cons
 
 **优势：**
 
@@ -169,7 +169,7 @@ $$\frac{\partial L}{\partial W_{hh}} = \sum_t \frac{\partial L_t}{\partial W_{hh
 
 ---
 
-## RNN 的应用
+## 循环神经网络应用 RNN Applications
 
 ### 图像字幕 Image Captioning
 
@@ -233,7 +233,7 @@ $$\frac{\partial L_T}{\partial h_1} \propto \prod_{t=2}^{T} \tanh'(\cdots) \cdot
 
 ---
 
-## LSTM：长短期记忆网络
+## 长短期记忆网络 LSTM
 
 LSTM 的设计动机很明确：让信息能跨越很长的距离，不被 $\tanh$ 反复压缩。
 

@@ -4,7 +4,7 @@ top: false
 cover: false
 toc: true
 mathjax: true
-date: 2026-06-10 10:00:00
+date: 2026-06-10 13:51:02
 password:
 description: CS231n Lecture 8 笔记，涵盖注意力机制的起源（克服 RNN Seq2Seq 瓶颈）、缩放点积注意力与 QKV 抽象、自注意力与多头注意力、Transformer 架构设计、以及 ViT 的基本思想，最后对比 RNN / 卷积 / 自注意力三种序列处理原语。
 tags: [CS231n, 计算机视觉, 深度学习, Transformer, 自注意力, 注意力机制, ViT]
@@ -19,7 +19,7 @@ Transformer 已经是现在深度学习最常使用的架构。最初为机器�
 
 ---
 
-## RNN Seq2Seq 的瓶颈：为什么需要注意力？
+## RNN Seq2Seq 瓶颈与注意力动机 Bottleneck of RNN Seq2Seq and Attention
 
 回顾 Lecture 7 末尾的 Seq2Seq 架构：一个 RNN 作为编码器，按顺序消化输入序列，最终吐出一个固定长度的**上下文向量**总结整条输入序列的语义；然后另一个 RNN 作为解码器，每个时间步依赖这个上下文向量来生成输出序列的单词。
 
@@ -116,7 +116,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right) V
 
 ---
 
-## 自注意力：自己关注自己
+## 自注意力机制 Self-Attention
 
 交叉注意力有两个输入源（Q 来自一方，K/V 来自另一方）。**自注意力**则只有一个输入序列——Q、K、V 全部来自同一组向量。
 
@@ -188,7 +188,7 @@ RNN 的痛点是并行——每个时间步依赖上一步的结果，整条序�
 
 ---
 
-## Transformer 架构
+## Transformer 架构 Transformer Architecture
 
 2017 年，《Attention Is All You Need》这篇论文把自注意力推上了王座。Transformer 的核心组件——Transformer Block——由以下层叠成：
 
@@ -227,7 +227,7 @@ def transformer_block(x):
 
 ---
 
-## ViT：把 Transformer 用到图像上
+## 视觉 Transformer Vision Transformer
 
 Transformer 最初为文本设计——输入是一个 token 序列，天然的集合结构。图像怎么办？
 

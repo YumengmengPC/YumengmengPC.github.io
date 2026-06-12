@@ -12,7 +12,8 @@ hexo.extend.filter.register('after_render:html', function(html, data) {
   img[src*="/images/self_attention"],
   img[src*="/images/transformer_block"],
   img[src*="/images/arxiv"],
-  img[src*="/images/lec9_"] {
+  img[src*="/images/lec9_"],
+  img[src*="/images/lec10_"] {
     filter: invert(0.9) hue-rotate(180deg);
   }
 }

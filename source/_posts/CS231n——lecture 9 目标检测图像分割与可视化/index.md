@@ -4,7 +4,7 @@ top: false
 cover: false
 toc: true
 mathjax: true
-date: 2026-06-10 10:00:00
+date: 2026-06-10 16:59:47
 password:
 description: CS231n Lecture 9 笔记，涵盖 Transformer 架构优化（SwiGLU/MoE/pre-norm）、语义分割（FCN/U-Net/转置卷积）、目标检测（R-CNN→YOLO→DETR）、实例分割（Mask R-CNN）以及神经网络可视化方法（Saliency/CAM/Grad-CAM）。
 tags: [CS231n, 计算机视觉, 目标检测, 语义分割, 实例分割, Transformer, DETR, YOLO, Mask R-CNN, Grad-CAM]
@@ -15,7 +15,7 @@ Lecture 8 讲了 Transformer 怎么从 NLP 跨界到视觉。Lecture 9 更进一
 
 ---
 
-## ViT 回顾与 Transformer 微调
+## ViT 回顾与 Transformer 微调 ViT Review and Fine-tuning
 
 先快速回顾一下 ViT（Vision Transformer）的完整流程，因为后续的检测和分割方法很多都建立在它之上。
 
@@ -154,7 +154,7 @@ DETR 的损失函数需要**二分图匹配**（Hungarian 算法）：先把预�
 
 ---
 
-## 实例分割：Mask R-CNN
+## 实例分割与 Mask R-CNN Instance Segmentation and Mask R-CNN
 
 ![Mask R-CNN 架构](/images/lec9_mask_rcnn.png)
 
@@ -166,7 +166,7 @@ Mask R-CNN 在 Faster R-CNN 的基础上加了一个并行的**掩码预测头**
 
 ---
 
-## 看懂神经网络：可视化方法
+## 神经网络可视化方法 Neural Network Visualization
 
 模型到底在看什么？哪种像素对分类结果影响最大？这是可解释性的核心问题。
 

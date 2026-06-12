@@ -4,7 +4,7 @@ top: false
 cover: images/cover_lecture6.jpg
 toc: true
 mathjax: true
-date: 2026-06-03 10:00:00
+date: 2026-06-03 15:39:14
 password:
 description: CS231n Lecture 6 笔记，涵盖卷积层/池化层/标准化层/Dropout 等 CNN 基础组件、激活函数选型、VGG 与 ResNet 架构设计哲学、权重初始化策略、数据预处理与增强、迁移学习的四种策略，以及超参数调优的实践流程。
 tags: [CS231n, 计算机视觉, 深度学习, CNN, 迁移学习, 超参数调优]
