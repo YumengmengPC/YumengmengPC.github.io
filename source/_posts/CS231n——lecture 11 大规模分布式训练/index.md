@@ -1,19 +1,17 @@
 ---
 title: CS231n——Lecture 11 大规模分布式训练
 top: false
-cover: false
+cover: images/cover_lecture11.jpg
 toc: true
 mathjax: true
 date: 2026-06-12 15:05:46
 password:
 description: CS231n Lecture 11 笔记，从 H100 GPU 内部结构出发，深入 Llama 3-405B 的训练基础设施：数据并行 (DP)、全分片数据并行 (FSDP)、混合分片 (HSDP)、激活检查点、上下文并行 (CP)、流水线并行 (PP)、张量并行 (TP)，以及如何用 MFU 衡量分布式训练效率。
 tags: [CS231n, 计算机视觉, 分布式训练, GPU, H100, 数据并行, FSDP, 流水线并行, 张量并行, MFU, Llama3]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
-前面十节课都在讲模型结构——CNN、RNN、Transformer、ViT。这节课换个角度：当一个模型大到单张 GPU 根本塞不下时，怎么在成百上千张 GPU 上训练它？
-
-本节课以 **Llama 3-405B** 为贯穿案例。Meta 在论文里公开了大量训练基础设施细节，非常难得——因为 GPT-4 之后的趋势是各大公司对训练细节守口如瓶。
+当一个模型大到单张 GPU 根本塞不下时，怎么在成百上千张 GPU 上训练它？本节课以 **Llama 3-405B** 为贯穿案例。Meta 在论文里公开了大量训练基础设施细节，非常难得——因为 GPT-4 之后的趋势是各大公司对训练细节守口如瓶。
 
 ---
 

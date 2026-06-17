@@ -1,17 +1,17 @@
 ---
 title: CS231n——Lecture 12 自监督学习
 top: false
-cover: false
+cover: images/cover_lecture12.jpg
 toc: true
 mathjax: true
 date: 2026-06-13 17:32:11
 password:
 description: CS231n Lecture 12 笔记，深入自监督学习：从旋转预测、拼图、修复、着色等变换类 pretext 任务，到 MAE 掩码自编码器的大比例重建，再到 SimCLR、MoCo 等对比学习框架，探讨如何在海量无标签数据上预训练出高质量视觉表征。
 tags: [CS231n, 计算机视觉, 自监督学习, 对比学习, SimCLR, MoCo, MAE, 掩码自编码器, 表征学习, CPC, DINO]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
-前面几节课我们一直在讨论有监督的视觉任务——分类、检测、分割——每个都需要大量人工标注。但现实中标注数据又贵又少，无标签数据却到处都是。这节课要解决的核心问题就是：**能不能不用人工标签，让模型自己从数据里学到好的特征表示？**
+标注数据又贵又少，无标签数据却到处都是。这节课要解决的核心问题就是：**能不能不用人工标签，让模型自己从数据里学到好的特征表示？**
 
 这就是自监督学习（Self-Supervised Learning，SSL）要做的事。
 

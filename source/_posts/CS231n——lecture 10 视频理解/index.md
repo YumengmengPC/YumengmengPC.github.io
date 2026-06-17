@@ -1,17 +1,17 @@
 ---
 title: CS231n——Lecture 10 视频理解
 top: false
-cover: false
+cover: images/cover_lecture10.jpg
 toc: true
 mathjax: true
 date: 2026-06-11 14:00:38
 password:
 description: CS231n Lecture 10 笔记，涵盖视频分类的演进路线：从 Single-Frame CNN 基线到 3D 卷积网络，从光流双流网络到时空自注意力（Nonlocal Block），再到 I3D 和 Video Transformer，最后讨论时序动作定位。
 tags: [CS231n, 计算机视觉, 视频理解, 3D卷积, 光流, Two-Stream, I3D, Nonlocal Block, 动作识别, 时序定位]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
-前面九节课的输入都是静态图像——分类、检测、分割，数据形状始终是 `3 × H × W`。这节课引入时间维度，视频的数据形式变为 `T × 3 × H × W`（或 `3 × T × H × W`），其中 T 是帧数。多出来的时间维度带来了新挑战：数据量级、帧间信息融合、长时序依赖建模。
+视频的数据形式是 `T × 3 × H × W`（或 `3 × T × H × W`），其中 T 是帧数。和静态图像最大的不同在于多出来的时间维度，这带来了几个新挑战：数据量级成倍增长、帧间信息如何有效融合、长时序依赖怎么建模。
 
 ---
 

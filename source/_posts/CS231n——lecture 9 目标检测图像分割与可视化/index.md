@@ -1,17 +1,17 @@
 ---
 title: CS231n——Lecture 9 目标检测、图像分割与可视化
 top: false
-cover: false
+cover: images/cover_lecture9.jpg
 toc: true
 mathjax: true
 date: 2026-06-10 16:59:47
 password:
 description: CS231n Lecture 9 笔记，涵盖 Transformer 架构优化（SwiGLU/MoE/pre-norm）、语义分割（FCN/U-Net/转置卷积）、目标检测（R-CNN→YOLO→DETR）、实例分割（Mask R-CNN）以及神经网络可视化方法（Saliency/CAM/Grad-CAM）。
 tags: [CS231n, 计算机视觉, 目标检测, 语义分割, 实例分割, Transformer, DETR, YOLO, Mask R-CNN, Grad-CAM]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
-Lecture 8 讲了 Transformer 怎么从 NLP 跨界到视觉。Lecture 9 更进一步——既然 Transformer 这么强，拿它来做检测和分割行不行？在回答这个问题之前，这节课先把计算机视觉的几张"核心任务牌"摊开：分类、语义分割、目标检测、实例分割——从简单到复杂，一关一关过。最后聊聊怎么"看懂"神经网络内部在关注什么。
+这节课先把计算机视觉的几张核心任务牌摊开：分类、语义分割、目标检测、实例分割——从简单到复杂，一关一关过。然后聊聊怎么用 Transformer 来做这些任务，最后看看怎么"看懂"神经网络内部在关注什么。
 
 ---
 

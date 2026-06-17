@@ -1,17 +1,17 @@
 ---
 title: CS231n——Lecture 8 注意力机制与Transformers
 top: false
-cover: false
+cover: images/cover_lecture8.jpg
 toc: true
 mathjax: true
 date: 2026-06-10 13:51:02
 password:
 description: CS231n Lecture 8 笔记，涵盖注意力机制的起源（克服 RNN Seq2Seq 瓶颈）、缩放点积注意力与 QKV 抽象、自注意力与多头注意力、Transformer 架构设计、以及 ViT 的基本思想，最后对比 RNN / 卷积 / 自注意力三种序列处理原语。
 tags: [CS231n, 计算机视觉, 深度学习, Transformer, 自注意力, 注意力机制, ViT]
-categories: [学习笔记]
+categories: [CS231n学习笔记]
 ---
 
-如果说 Lecture 7 让我们认识了处理序列的"经典方案"——RNN 和它的变体 LSTM，那 Lecture 8 要讲的，就是彻底改变整个深度学习版图的一个东西：**注意力机制和 Transformer**。
+RNN 和 LSTM 是处理序列的经典方案，但这一讲要介绍的东西彻底改变了整个深度学习的版图：**注意力机制和 Transformer**。
 
 Transformer 已经是现在深度学习最常使用的架构。最初为机器翻译而生，如今横扫 NLP、计算机视觉、语音、多模态……遍地开花。
 
