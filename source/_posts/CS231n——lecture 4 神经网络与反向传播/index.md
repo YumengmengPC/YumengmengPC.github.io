@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-06-02 13:06:16
 password:
 description: CS231n Lecture 4 笔记，涵盖从线性分类器到双层神经网络的过渡、激活函数的必要性与选型、计算图与反向传播机制（链式法则、门模式、向量化梯度），以及模型容量与正则化的权衡。
-summary: CS231n Lecture 4 笔记，从线性函数到非线性激活的神经网络动机出发，深入反向传播算法的计算图抽象与链式法则推导，逐层解析常见激活函数（Sigmoid/Tanh/ReLU/LeakyReLU）的梯度特性，以及 MLP 多层感知机的架构设计与参数初始化策略。
 tags: [CS231n, 计算机视觉, 深度学习, 神经网络, 反向传播]
 categories: [CS231n学习笔记]
 ---

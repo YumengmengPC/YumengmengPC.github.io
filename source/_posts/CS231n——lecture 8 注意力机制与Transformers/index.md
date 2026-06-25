@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-06-10 13:51:02
 password:
 description: CS231n Lecture 8 笔记，涵盖注意力机制的起源（克服 RNN Seq2Seq 瓶颈）、缩放点积注意力与 QKV 抽象、自注意力与多头注意力、Transformer 架构设计、以及 ViT 的基本思想，最后对比 RNN / 卷积 / 自注意力三种序列处理原语。
-summary: CS231n Lecture 8 笔记，深入注意力机制与 Transformer：从 RNN Seq2Seq 瓶颈催生的注意力直觉出发，推导缩放点积注意力与 QKV 抽象，多头注意力的多子空间并行，Transformer 的自注意力/位置编码/层归一化三大组件，以及 ViT 如何将图像 patch 化引入 Transformer 架构。
 tags: [CS231n, 计算机视觉, 深度学习, Transformer, 自注意力, 注意力机制, ViT]
 categories: [CS231n学习笔记]
 ---

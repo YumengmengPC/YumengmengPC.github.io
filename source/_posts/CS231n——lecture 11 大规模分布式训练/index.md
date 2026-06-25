@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-06-12 15:05:46
 password:
 description: CS231n Lecture 11 笔记，从 H100 GPU 内部结构出发，深入 Llama 3-405B 的训练基础设施：数据并行 (DP)、全分片数据并行 (FSDP)、混合分片 (HSDP)、激活检查点、上下文并行 (CP)、流水线并行 (PP)、张量并行 (TP)，以及如何用 MFU 衡量分布式训练效率。
-summary: CS231n Lecture 11 笔记，以 Llama 3-405B 为案例深入大规模分布式训练：H100 GPU 内部结构与集群拓扑，数据并行 DP/FSDP/HSDP 的分片策略，流水线并行 PP 的 microbatch 调度，张量并行 TP 的矩阵分块通信，以及 MFU 模型 FLOPs 利用率的评估方法。
 tags: [CS231n, 计算机视觉, 分布式训练, GPU, H100, 数据并行, FSDP, 流水线并行, 张量并行, MFU, Llama3]
 categories: [CS231n学习笔记]
 ---

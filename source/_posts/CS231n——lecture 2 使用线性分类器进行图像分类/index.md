@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-05-31 14:27:50
 password:
 description: CS231n Lecture 2 笔记，涵盖 KNN 分类器、超参数调优策略、线性分类器原理及损失函数（SVM 与 Softmax）。
-summary: CS231n Lecture 2 笔记，涵盖 KNN 最近邻分类器、L1/L2 距离度量、超参数调优与交叉验证策略、线性分类器的几何直觉，以及 SVM 合页损失与 Softmax 交叉熵损失函数的推导对比。
 tags: [CS231n, 计算机视觉, 深度学习]
 categories: [CS231n学习笔记]
 ---

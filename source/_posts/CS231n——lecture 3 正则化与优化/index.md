@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-05-31 15:27:56
 password:
 description: CS231n Lecture 3 笔记，涵盖 L1/L2/Elastic Net 正则化方法及其重要性，以及从梯度下降到 AdamW 的完整优化算法演进路线。
-summary: CS231n Lecture 3 笔记，涵盖 L1/L2 正则化的几何直觉与权重衰减原理、从 SGD 到带动量 SGD 再到 RMSprop 和 Adam 的优化算法演进、每轮优化的公式推导与代码参考，以及训练过程中学习率调度与早停等实用技巧。
 tags: [CS231n, 计算机视觉, 深度学习, 正则化, 优化算法]
 categories: [CS231n学习笔记]
 ---

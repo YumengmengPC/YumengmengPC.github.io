@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-06-11 14:00:38
 password:
 description: CS231n Lecture 10 笔记，涵盖视频分类的演进路线：从 Single-Frame CNN 基线到 3D 卷积网络，从光流双流网络到时空自注意力（Nonlocal Block），再到 I3D 和 Video Transformer，最后讨论时序动作定位。
-summary: CS231n Lecture 10 笔记，涵盖视频理解的演进路线：从 Single-Frame CNN 基线到 C3D/3D ResNet 等 3D 卷积网络，从光流双流网络到时序分段网络 TSN，再到 Nonlocal Block 时空自注意力、I3D 膨胀卷积和 Video Transformer，最后讨论时序动作定位与检测。
 tags: [CS231n, 计算机视觉, 视频理解, 3D卷积, 光流, Two-Stream, I3D, Nonlocal Block, 动作识别, 时序定位]
 categories: [CS231n学习笔记]
 ---

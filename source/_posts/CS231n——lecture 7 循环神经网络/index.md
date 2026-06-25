@@ -7,7 +7,6 @@ mathjax: true
 date: 2026-06-08 14:19:31
 password:
 description: CS231n Lecture 7 笔记，涵盖 RNN 的序列建模思想、Vanilla RNN 公式推导与 BPTT 训练、字符级语言模型实例、梯度消失/爆炸的数学直觉、LSTM 门控机制与细胞状态高速公路，以及 Mamba 等现代状态空间模型的动机。
-summary: CS231n Lecture 7 笔记，进入序列建模：RNN 循环神经网络的时序展开与前向/反向传播，LSTM 的门控机制（遗忘门/输入门/输出门）如何缓解梯度消失，Seq2Seq 编码器-解码器架构与上下文向量的通信瓶颈，以及视频/语言/语音等可变长度序列的统一建模范式。
 tags: [CS231n, 计算机视觉, 深度学习, RNN, LSTM, 序列建模, Mamba]
 categories: [CS231n学习笔记]
 ---
