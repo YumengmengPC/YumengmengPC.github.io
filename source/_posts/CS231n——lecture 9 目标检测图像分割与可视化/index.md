@@ -7,6 +7,7 @@ mathjax: true
 date: 2026-06-10 16:59:47
 password:
 description: CS231n Lecture 9 笔记，涵盖 Transformer 架构优化（SwiGLU/MoE/pre-norm）、语义分割（FCN/U-Net/转置卷积）、目标检测（R-CNN→YOLO→DETR）、实例分割（Mask R-CNN）以及神经网络可视化方法（Saliency/CAM/Grad-CAM）。
+summary: CS231n Lecture 9 笔记，涵盖 Transformer 架构优化（SwiGLU/MoE/pre-norm）、语义分割（FCN/U-Net/转置卷积）、目标检测（R-CNN→Fast R-CNN→Faster R-CNN→YOLO→DETR）、实例分割（Mask R-CNN）以及神经网络可视化（Saliency Maps/CAM/Grad-CAM）。
 tags: [CS231n, 计算机视觉, 目标检测, 语义分割, 实例分割, Transformer, DETR, YOLO, Mask R-CNN, Grad-CAM]
 categories: [CS231n学习笔记]
 ---

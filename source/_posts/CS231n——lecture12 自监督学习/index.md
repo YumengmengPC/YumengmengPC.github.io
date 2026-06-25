@@ -7,6 +7,7 @@ mathjax: true
 date: 2026-06-13 17:32:11
 password:
 description: CS231n Lecture 12 笔记，深入自监督学习：从旋转预测、拼图、修复、着色等变换类 pretext 任务，到 MAE 掩码自编码器的大比例重建，再到 SimCLR、MoCo 等对比学习框架，探讨如何在海量无标签数据上预训练出高质量视觉表征。
+summary: CS231n Lecture 12 笔记，深入自监督学习：从旋转预测、拼图、修复、着色等变换类 pretext 任务，到 MAE 掩码自编码器的大比例随机掩码重建，再到 SimCLR 的对比学习框架与 MoCo 动量队列负样本策略，探讨如何在海量无标签数据上预训练出高质量视觉表征。
 tags: [CS231n, 计算机视觉, 自监督学习, 对比学习, SimCLR, MoCo, MAE, 掩码自编码器, 表征学习, CPC, DINO]
 categories: [CS231n学习笔记]
 ---

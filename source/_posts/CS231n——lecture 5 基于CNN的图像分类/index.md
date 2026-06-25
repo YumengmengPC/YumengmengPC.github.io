@@ -7,6 +7,7 @@ mathjax: true
 date: 2026-06-02 16:58:43
 password:
 description: CS231n Lecture 5 笔记，涵盖从全连接到卷积的过渡、卷积层（滤波器/步幅/填充/感受野）、池化层，以及卷积神经网络架构的设计原则。
+summary: CS231n Lecture 5 笔记，进入卷积神经网络时代：卷积层的局部连接与参数共享两大核心思想，卷积核、步长、填充的几何运算，池化层的降采样与平移不变性，以及 LeNet-5/AlexNet 等早期 CNN 架构的设计演进与 ImageNet 挑战赛的历史背景。
 tags: [CS231n, 计算机视觉, 深度学习, 卷积神经网络, CNN]
 categories: [CS231n学习笔记]
 ---
