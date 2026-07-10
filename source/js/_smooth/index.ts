@@ -13,9 +13,9 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 if (!prefersReducedMotion) {
   const lenis = new Lenis({
-    lerp: 0.1,            // 插值系数,越小越丝滑(0.1 = 柔和惯性)
+    lerp: 0.12,           // 摩擦旋钮:越大停得越干脆(0.1柔和惯性/0.12适中/0.15偏灵敏)
     smoothWheel: true,    // 平滑鼠标滚轮
-    wheelMultiplier: 1,
+    wheelMultiplier: 1,   // 滚轮每格滚动距离倍率
     touchMultiplier: 1.5,
   })
 
