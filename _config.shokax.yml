@@ -37,3 +37,9 @@ footer:
  since: 2026
  powered: true
  count: true
+
+# 关闭 Google Fonts 远程加载,改用系统字体栈(-apple-system/PingFang SC),
+# 消除国内慢依赖与 FOUT,视觉更贴近苹果原生。Mulish 等家族名保留但不加载,浏览器回退系统字体。
+font:
+  enable: true
+  loadFromGoogle: false
