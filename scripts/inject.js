@@ -9,4 +9,7 @@ hexo.extend.filter.register('theme_inject', function (injects) {
 
   // 平滑滚动脚本注入(阶段 B) - 在 bodyEnd 处渲染 <script type=module>
   injects.bodyEnd.raw('smooth-script', 'script(type="module" src="/js/smooth.js" defer)');
+
+  // 跨文档 View Transitions(阶段 C) 改用 scripts/view-transitions.js 的 after_render 注入
+  // (stylus injects.variable 的 @view-transition 会被 css minify 按 browserslist 删除)
 });
