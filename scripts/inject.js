@@ -6,4 +6,7 @@
 hexo.extend.filter.register('theme_inject', function (injects) {
   // 设计 token + 全局无障碍降级(阶段 A)
   injects.variable.push('source/_data/design-tokens.styl');
+
+  // 平滑滚动脚本注入(阶段 B) - 在 bodyEnd 处渲染 <script type=module>
+  injects.bodyEnd.raw('smooth-script', 'script(type="module" src="/js/smooth.js" defer)');
 });

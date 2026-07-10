@@ -8,3 +8,4 @@ public/
 _multiconfig.yml
 .vercel
 .claude/settings.local.json
+source/js/smooth.js

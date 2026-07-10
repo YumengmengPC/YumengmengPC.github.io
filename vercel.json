@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npx hexo generate",
+  "buildCommand": "npm run build",
   "outputDirectory": "public",
   "installCommand": "npm install",
   "framework": null,
