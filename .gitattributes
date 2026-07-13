@@ -1,0 +1,12 @@
+# 统一文本文件为 LF，防止 Windows 端(Obsidian)编辑引入 CRLF 造成整文件 diff
+* text=auto eol=lf
+
+# 常见二进制资源显式声明，避免被当作文本处理
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.woff  binary
+*.woff2 binary
