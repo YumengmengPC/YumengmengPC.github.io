@@ -32,10 +32,9 @@ waline:
   enable: true # 是否启用
   serverURL: "https://comment.yumengmeng.cn" # waline 服务端地址(自定义域名,Vercel 部署)
   lang: "zh-CN" # 评论界面语言
-  locale: {} # 本地化替换，详见 waline 文档
-  emoji: # 表情包，默认为 waline 官方配置
-    - https://unpkg.com/@waline/emojis@1.0.1/weibo
-    - https://unpkg.com/@waline/emojis@1.0.1/alus
+  locale:
+    noRss: true # 隐藏 RSS 订阅入口(订阅本文评论/订阅本站评论):浏览器无内置 RSS 阅读器,点击会直接显示 XML 源码
+  emoji: # 表情包合集(移除 weibo/alus;保留 qq 即 QQ 表情,虽为 gif 动图但用户指定保留)
     - https://unpkg.com/@waline/emojis@1.0.1/bilibili
     - https://unpkg.com/@waline/emojis@1.0.1/qq
     - https://unpkg.com/@waline/emojis@1.0.1/tieba
