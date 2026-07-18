@@ -12,3 +12,6 @@ source/js/smooth.js
 
 # Obsidian 本地状态/配置(跨机器无意义,不入库)
 .obsidian/
+
+# Windows 复制文件到 WSL 产生的 NTFS 备用数据流残留
+*:Zone.Identifier
