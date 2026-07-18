@@ -1,7 +1,7 @@
 ---
 title: Python+Pytorch基础知识整理
 top: false
-cover: cover_python_and_pytorch.jpg
+cover: images/cover_python_and_pytorch.jpg
 toc: true
 mathjax: true
 date: 2026-07-13 18:53:12
