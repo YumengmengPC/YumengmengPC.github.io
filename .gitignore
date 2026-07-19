@@ -8,6 +8,7 @@ public/
 _multiconfig.yml
 .vercel
 .claude/settings.local.json
+.claude/plans/
 source/js/smooth.js
 
 # Obsidian 本地状态/配置(跨机器无意义,不入库)
