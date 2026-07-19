@@ -8,6 +8,7 @@ public/
 _multiconfig.yml
 .vercel
 .claude/settings.local.json
+.claude/plans/
 source/js/smooth.js
 
 # Obsidian 本地状态/配置(跨机器无意义,不入库)
@@ -15,3 +16,6 @@ source/js/smooth.js
 
 # Windows 复制文件到 WSL 产生的 NTFS 备用数据流残留
 *:Zone.Identifier
+
+# 个人学习计划/周报(Typst 源文件,与博客构建无关)
+*.typ
