@@ -16,6 +16,3 @@ source/js/smooth.js
 
 # Windows 复制文件到 WSL 产生的 NTFS 备用数据流残留
 *:Zone.Identifier
-
-# 个人学习计划/周报(Typst 源文件,与博客构建无关)
-*.typ
