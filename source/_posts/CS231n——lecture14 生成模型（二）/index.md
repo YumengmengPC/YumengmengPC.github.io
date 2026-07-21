@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 14 生成模型（二）
 top: false
-cover: images/cover_lecture14.jpg
+cover: images/cover_lecture14.webp
 toc: true
 mathjax: true
 date: 2026-06-16 13:51:23
@@ -35,7 +35,7 @@ GAN 说：**直接放弃 $p(x)$。** 手里有一批真实数据样本 $x \sim p
 
 两个网络对抗训练：生成器想骗过判别器，判别器想识破假货。判别器本质上是生成器的**可微损失函数**——梯度从 $D$ 传到假样本，再传到 $G$。
 
-![GAN 训练目标](/images/lec14_gan_minimax.png)
+![GAN 训练目标](/images/lec14_gan_minimax.webp)
 
 ### 极小极大博弈
 
@@ -79,7 +79,7 @@ GAN 有一个好看的特性：潜空间是光滑的。给定两个潜向量 $z_
 
 这证明了生成器没有"死记硬背"训练数据，而是真的学到了一个连续流形。
 
-![GAN 潜空间插值](/images/lec14_gan_interpolation.png)
+![GAN 潜空间插值](/images/lec14_gan_interpolation.webp)
 
 ### GAN 小结
 
@@ -138,7 +138,7 @@ for x in dataset:
 
 和 GAN 比，扩散模型用一个简单 L2 损失就能可靠地跟踪训练质量——loss 下降 = 模型变好。
 
-![整流流训练流程](/images/lec14_rectified_flow.png)
+![整流流训练流程](/images/lec14_rectified_flow.webp)
 
 ### 采样（推理）
 
@@ -207,7 +207,7 @@ $w$ 是引导强度。$w = 1$ 就是普通条件生成，$w > 1$ 放大条件的
 
 代价：每步采样需要两次网络前向传播（条件 + 无条件），计算量翻倍。也可以通过蒸馏把 CFG 的效果内化到单次前向中。
 
-![无分类器引导 CFG](/images/lec14_cfg.png)
+![无分类器引导 CFG](/images/lec14_cfg.webp)
 
 ### 最优预测与噪声调度
 
@@ -221,7 +221,7 @@ $w$ 是引导强度。$w = 1$ 就是普通条件生成，$w > 1$ 放大条件的
 
 在像素空间直接做扩散太贵了——$256 \times 256 \times 3$ 的图每一步都要过一遍网络。真实场景（Stable Diffusion、FLUX）都在**潜在空间**里做扩散。
 
-![潜在扩散模型架构](/images/lec14_ldm.png)
+![潜在扩散模型架构](/images/lec14_ldm.webp)
 
 ### 架构
 
@@ -253,7 +253,7 @@ $w$ 是引导强度。$w = 1$ 就是普通条件生成，$w > 1$ 放大条件的
 * **文本条件**：通过交叉注意力注入
 * **其他条件**（如标签）：和 $t$ 一样走 adaLN
 
-![DiT 扩散 Transformer](/images/lec14_dit.png)
+![DiT 扩散 Transformer](/images/lec14_dit.webp)
 
 ### 文生图管线
 
@@ -264,7 +264,7 @@ $w$ 是引导强度。$w = 1$ 就是普通条件生成，$w > 1$ 放大条件的
 3. DiT 输出去噪后的潜在空间
 4. **解码器**把潜在向量还原为图像
 
-![文生图管线](/images/lec14_text2image.png)
+![文生图管线](/images/lec14_text2image.webp)
 
 ### 文生视频
 

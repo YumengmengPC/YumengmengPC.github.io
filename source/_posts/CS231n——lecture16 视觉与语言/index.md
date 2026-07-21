@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 16 视觉与语言
 top: false
-cover: images/cover_lecture16.jpg
+cover: images/cover_lecture16.webp
 toc: true
 mathjax: true
 date: 2026-06-17 15:48:38
@@ -17,7 +17,7 @@ categories: [CS231n学习笔记]
 
 **基础模型 (Foundation Model)** 的思路彻底翻了这个范式：用海量多样化的数据预训练**一个**大模型，让这个模型充当后续各种任务的"地基"。接下来不管是分类、检测、问答还是生成，都在这个地基上微调、few-shot、甚至 zero-shot 就能干活，不需要从头训起。
 
-![基础模型的概念](/images/lec16_foundation_model.png)
+![基础模型的概念](/images/lec16_foundation_model.webp)
 
 GPT 是这个思路最好的例子——用互联网上抓下来的 Common Crawl 语料做预训练，然后同一个模型可以应对数学推理、符号推理、翻译、问答等一系列任务。它的预训练目标只是"预测下一个 token"，但学到的表示足够通用，能被迁移到完全不同的下游场景。
 
@@ -41,7 +41,7 @@ GPT 是这个思路最好的例子——用互联网上抓下来的 Common Crawl
 
 这节课问了一个很自然的问题：**能不能把文本也拉进这个表示空间？**
 
-![SimCLR 到 CLIP 的演化](/images/lec16_clip_arch.png)
+![SimCLR 到 CLIP 的演化](/images/lec16_clip_arch.webp)
 
 SimCLR 只有图像编码器，两张图经过同一个编码器后去算对比损失。CLIP 的做法是再加一个文本编码器，让"一只毛茸茸的猫"这句话的嵌入靠近猫的图片嵌入，让"金毛是我最喜欢的狗"靠近金毛的图片嵌入。训练目标和 SimCLR 一样是对比学习，但正样本对变成了 (图像, 对应文本描述)，负样本是同一批次中所有其他文本。
 
@@ -61,7 +61,7 @@ CLIP 最有意思的用法是 zero-shot 分类。思路本身很巧妙：
 2. 给一张新图像，用图像编码器提取特征
 3. 算图像向量和所有类原型向量的余弦相似度，最近的那个就是预测类别
 
-![Zero-shot 分类流程](/images/lec16_zero_shot.png)
+![Zero-shot 分类流程](/images/lec16_zero_shot.webp)
 
 整个过程本质上是一个 1-近邻分类器：所有类的文本嵌入是"中心"，来了新图像找最近的中心。Prompt 工程在这里很关键——用单个单词（"dog"）做向量效果远不如用短语，因为 CLIP 的训练数据就是短语形式的，模型没见过单词语境。多个模板取平均（prompt ensembling）能进一步减少单个模板的偏差。
 
@@ -104,7 +104,7 @@ CLIP 还有一个微妙之处：**linear probe 和 zero-shot 的性能差异**�
 
 CLIP 只做对比——判断图文是否匹配，但不需要模型真正"理解"图片里有什么。CoCa（Contrastive Captioners）在 CLIP 的基础上加了一个**描述生成解码器**：除了对比损失，模型还要自回归地生成图片的完整文字描述。
 
-![CoCa 架构：在 CLIP 基础上加入描述解码器](/images/lec16_coca.png)
+![CoCa 架构：在 CLIP 基础上加入描述解码器](/images/lec16_coca.webp)
 
 CoCa 的架构和 CLIP 一样是双编码器，但从图像编码器的输出额外接了一个解码器，通过交叉注意力 (cross-attention) 来关注图像特征，自回归地生成 caption。这个解码器不仅仅是在做"图生文"，它反向迫使图像编码器学到更丰富的特征——要生成准确的描述，编码器必须捕捉颜色、形状、空间位置、物体之间的关系。对比损失告诉模型"这两者是不是一伙的"，描述损失告诉模型"图里到底有什么、它们之间是什么关系"。两个目标互补。
 
@@ -132,7 +132,7 @@ LLaVA 的架构非常直接，三个组件：
 2. **投影层**：一个简单的线性层，把 ViT 输出的 patch token 维度映射到 LLM 的 embedding 维度。这个投影层是**需要训练**的——它是两个预训练模型之间的"翻译器"
 3. **LLM**：Vicuna / LLaMA 等自回归语言模型。图像 token 和文本 token 拼接在一起输入，LLM 根据视觉+文本的上下文自回归地生成回答
 
-![LLaVA 整体架构](/images/lec16_llava_arch.png)
+![LLaVA 整体架构](/images/lec16_llava_arch.webp)
 
 LLaVA 的训练分成两个阶段。第一阶段只训练投影层，视觉编码器和 LLM 都冻结——这一步的目的是让图像 token 学会"说 LLM 能听懂的话"。第二阶段用图像-指令-回答三元组做指令微调，可以同时微调 LLM 参数。这个两阶段策略保证模型既学会了对齐，又学会了跟随指令。
 
@@ -144,7 +144,7 @@ Flamingo 有两个需要训练的部分（其余全部冻结）：
 
 **Perceiver Resampler**。视觉编码器输出的 token 数量取决于图像大小，变长的。Perceiver Resampler 是一个小的 Transformer，用固定数量的可学习 query 去关注变长的视觉 token，输出**固定长度**的视觉表示。这样不管图像多大，喂给 LLM 的视觉 token 数量始终不变。
 
-![Flamingo 完整架构](/images/lec16_flamingo_arch.png)
+![Flamingo 完整架构](/images/lec16_flamingo_arch.webp)
 
 **Gated XATTN-DENSE 层**。在 LLM 每个冻结的 Transformer block 之间插入两个小模块——交叉注意力 (cross-attention，用文本 token 去查视觉 token) 和一个 FFW 层。每个模块前面有一个**可学习的门控参数** $\alpha$，初始化为 0。前向过程是：
 
@@ -154,7 +154,7 @@ $$y = y + \tanh(\alpha_{dense}) \cdot \text{FFW}(y)$$
 
 $\tanh(0) = 0$，所以训练刚开始时门是关闭的——视觉信息完全没有流入，模型行为等同于原始的冻结 LLM。训练过程中 $\alpha$ 逐渐增大，门慢慢打开，模型开始利用视觉信息。这个设计很聪明：它保护了 LLM 原有的语言能力，让视觉信息成为"增强"而不是"干扰"。
 
-![Flamingo 门控交叉注意力](/images/lec16_flamingo_gated.png)
+![Flamingo 门控交叉注意力](/images/lec16_flamingo_gated.webp)
 
 **训练方式：交错图文序列**。Flamingo 把一堆 (图像, 描述) 对拼接成一个长序列——`<image> caption1 <eos> <image> caption2 <eos> ...`。但这里有个关键设计：训练时使用**掩码注意力 (masked attention)**，确保每个文本 token 只能关注到它对应的那张图像，不能跨图像偷看。如果不加这个掩码，模型就可能用前一张图的视觉信息来生成当前图的描述，学到的就不是"看图说话"而是"偷看答案"。
 
@@ -179,7 +179,7 @@ LLaMA 3.1V 用了 60 亿图文对做预训练——都是网上爬的。Molmo �
 
 标注流程并不只是"随便讲讲"。标注员被引导回答一系列具体问题：你第一眼看到的是什么？图中有哪些物体、分别有几个？文字写的是什么？每个物体的位置关系？背景里有什么细节？图像的风格是什么？这种结构化引导确保了描述覆盖了视觉理解的多个维度。语音描述再通过 ASR 自动转成文本，用来做预训练。
 
-![Molmo 数据质量对比](/images/lec16_molmo_pointing.png)
+![Molmo 数据质量对比](/images/lec16_molmo_pointing.webp)
 
 Molmo 的另一个创新是**指向机制 (pointing)**。输出不只是文字，还包含像素坐标——`<point x="63.5" y="44.5" alt="Mt Rainier">雷尼尔山</point>`。这让模型可以把语言描述直接锚定到图像的特定位置上，实现真正的 grounded reasoning。幻灯片上列举了指向的几种典型场景：**指着数 (pointing to count)**——数物体时明确指出每个物体的位置；**指着定位 (pointing to ground)**——描述一个物体时给出它的精确坐标。从感知到行动的链条在这里开始闭合：模型不仅知道"有三只猫"，还能指出每只猫在哪里。Molmo + SAM 2 的链接顺理成章——Molmo 指出物体位置，SAM 2 根据这些点做分割。
 
@@ -201,7 +201,7 @@ SAM 把分割重新定义为**可提示 (promptable)** 的接口，三个组件�
 2. **Prompt 编码器**：轻量级，接收用户的各种提示——点 (point)、框 (box)、文字、甚至粗糙的掩码——把它们编码成统一的表示
 3. **掩码解码器**：轻量级，根据图像特征 + prompt 表示输出分割掩码
 
-![SAM 架构](/images/lec16_sam_arch.png)
+![SAM 架构](/images/lec16_sam_arch.webp)
 
 三个组件各司其职：图像编码器负责"理解图像内容"，prompt 编码器负责"理解用户到底想切什么"，掩码解码器负责"根据前两者生成精确的边界"。重的编码器只跑一次，轻的解码器可以反复跑——用户交互式地加 prompt、改 prompt，模型都能实时响应。
 
@@ -237,7 +237,7 @@ CLIP 做 zero-shot 分类时需要人工写 prompt 模板。但如果 CLIP 面�
 
 CuPL 的思路：**让 LLM 生成描述，CLIP 用描述做分类**。对于一个新类别，先问 GPT："鸭嘴兽长什么样？"GPT 返回一段详细描述（"鸭嘴兽是一种半水生哺乳动物，有扁平的像鸭子一样的喙、棕色的毛皮、扁平的尾巴..."），然后把这段描述作为文本查询送给 CLIP，在图像库中检索匹配的图片。
 
-![CuPL 流程](/images/lec16_cupl.png)
+![CuPL 流程](/images/lec16_cupl.webp)
 
 CuPL 在 ImageNet 上提升了 0.65%，在 FGVC Aircraft（细粒度飞机分类）上提升了 3.81%，在 SUN397（场景分类）上提升了 3.43%。对于 CLIP 训练数据中覆盖较少的低频类别，LLM 生成的描述往往比人工写的模板更有信息量。
 
@@ -247,7 +247,7 @@ VisProg 把"链接模型"的想法推到了极致。核心理念：**不训练�
 
 GPT 负责生成一个 Python 程序，程序里调用现成的视觉模块——OWL-ViT 做检测、CLIP 做分类、MaskFormer 做分割、Stable Diffusion 做编辑——然后把各模块的输出拼成最终的答案。
 
-![VisProg 概念](/images/lec16_visprog.png)
+![VisProg 概念](/images/lec16_visprog.webp)
 
 举例："船上有三个人吗？"VisProg 的流程是：
 

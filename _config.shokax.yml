@@ -15,7 +15,7 @@ menu:
   about: /about/ || user
 
 homeConfig:
-  fixedCover: /images/photo1.jpg
+  fixedCover: /images/photo1.webp
   coverConfig:
     enableCover: true
 

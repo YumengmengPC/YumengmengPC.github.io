@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 11 大规模分布式训练
 top: false
-cover: images/cover_lecture11.jpg
+cover: images/cover_lecture11.webp
 toc: true
 mathjax: true
 date: 2026-06-12 15:05:46
@@ -25,7 +25,7 @@ categories: [CS231n学习笔记]
 
 ### NVIDIA H100 长什么样
 
-![H100 GPU 核心](/images/lec11_h100_die.png)
+![H100 GPU 核心](/images/lec11_h100_die.webp)
 
 GPU 最初是为图形渲染设计的，但现在已经是通用的并行计算处理器。H100 的结构很直观：中间是一大块计算核心，周围环绕着 80GB 的 HBM（高带宽内存）。
 
@@ -37,7 +37,7 @@ GPU 最初是为图形渲染设计的，但现在已经是通用的并行计算�
 
 ### 深入到计算核心
 
-![H100 计算核心](/images/lec11_h100_sms.png)
+![H100 计算核心](/images/lec11_h100_sms.webp)
 
 放大计算核心，最中央是 50MB 的 L2 Cache，周围分布着 **132 个流式多处理器（SM, Streaming Multiprocessor）**。实际上芯片上有 144 个 SM，但出于良率考虑，NVIDIA 只保证至少 132 个可用。
 
@@ -45,7 +45,7 @@ GPU 最初是为图形渲染设计的，但现在已经是通用的并行计算�
 
 ### 单个 SM 内部：FP32 核心与 Tensor Core
 
-![SM 内部结构](/images/lec11_h100_sm_inside.png)
+![SM 内部结构](/images/lec11_h100_sm_inside.webp)
 
 继续放大，每个 SM 内部有什么？
 
@@ -79,7 +79,7 @@ GPU 最初是为图形渲染设计的，但现在已经是通用的并行计算�
 
 ### 从一张 GPU 到一座集群
 
-![GPU 服务器](/images/lec11_gpu_server.png)
+![GPU 服务器](/images/lec11_gpu_server.webp)
 
 一张 H100 内部的带宽是 3352 GB/秒。但当我们把 8 张 H100 放进一台服务器：
 - 通过 NVLink/NVSwitch 互联
@@ -87,7 +87,7 @@ GPU 最初是为图形渲染设计的，但现在已经是通用的并行计算�
 
 从 3TB 掉到 900GB——已经差了近 4 倍。
 
-![集群拓扑](/images/lec11_cluster_topo.png)
+![集群拓扑](/images/lec11_cluster_topo.webp)
 
 继续往外扩，以 Meta 的 Llama 3 训练集群为例：
 
@@ -111,7 +111,7 @@ Google 的 **TPU v5p**：每芯片 459 TFLOPS BF16、95GB 显存，以 8960 芯�
 
 ## 算法篇：四种并行策略
 
-![四种并行策略总览](/images/lec11_four_axes.png)
+![四种并行策略总览](/images/lec11_four_axes.webp)
 
 一个 Transformer 模型操作的是形状为 `(Batch, Sequence, Dim)` 的张量，有 L 层。这四个维度自然引出了四种切分策略：
 
@@ -128,7 +128,7 @@ Google 的 **TPU v5p**：每芯片 459 TFLOPS BF16、95GB 显存，以 8960 芯�
 
 ### 基本思路
 
-![数据并行步骤](/images/lec11_dp_steps.png)
+![数据并行步骤](/images/lec11_dp_steps.webp)
 
 数据并行是最直观的策略。损失的梯度是线性的：
 
@@ -165,7 +165,7 @@ DP 的单 GPU 显存瓶颈直接催生了 FSDP。
 
 ### 核心思想
 
-![FSDP](/images/lec11_fsdp.png)
+![FSDP](/images/lec11_fsdp.webp)
 
 FSDP = Data Parallelism + ZeRO 分片。关键洞察：**每个权重 $W_i$ 只属于一个 GPU**，这个 GPU 同时负责该权重的梯度和优化器状态。没有任何 GPU 在任何时刻持有完整模型。
 
@@ -197,7 +197,7 @@ FSDP = Data Parallelism + ZeRO 分片。关键洞察：**每个权重 $W_i$ 只�
 
 ## 混合分片数据并行 (HSDP)
 
-![HSDP](/images/lec11_hsdp.png)
+![HSDP](/images/lec11_hsdp.webp)
 
 FSDP 每层需要 3 次集合通信（前向 all-gather + 反向 all-gather + reduce-scatter）。当 GPU 数量很大时，这成了通信瓶颈。
 
@@ -233,7 +233,7 @@ FSDP/HSDP 解决的是权重和优化器的显存问题。但激活值才是更�
 
 ## 实践中的扩展路线图
 
-![扩展路线图](/images/lec11_scaling_recipe.png)
+![扩展路线图](/images/lec11_scaling_recipe.webp)
 
 这是 Justin 给出的经验法则，非常实用：
 
@@ -253,7 +253,7 @@ FSDP/HSDP 解决的是权重和优化器的显存问题。但激活值才是更�
 
 并行策略多了，怎么判断配置是否合理？业界用 **MFU（Model FLOPs Utilization，模型浮点运算利用率）**。
 
-![MFU](/images/lec11_mfu.png)
+![MFU](/images/lec11_mfu.webp)
 
 $$\text{MFU} = \frac{\text{FLOPs}_{\text{theoretical}} \div \text{peak\_FLOPs\_per\_sec}}{\text{actual\_iteration\_time}}$$
 
@@ -272,7 +272,7 @@ FLOPs_theoretical 是前向+反向传播中所有矩阵乘法的理论浮点运�
 
 ## 上下文并行 (CP)
 
-![上下文并行](/images/lec11_context_parallel.png)
+![上下文并行](/images/lec11_context_parallel.webp)
 
 当序列长到一张 GPU 处理不了时（比如 131K tokens），需要用上下文并行。思路是：用多张 GPU 联合处理一个长序列。
 
@@ -300,7 +300,7 @@ Transformer 各层的并行化难度不同：
 
 这种空闲叫做 **Bubble（气泡）**。N 路流水线并行的最大 MFU 只有 $1/N$——4 路就只有 25%。
 
-![流水线并行微批次](/images/lec11_pipeline_microbatch.png)
+![流水线并行微批次](/images/lec11_pipeline_microbatch.webp)
 
 **解决方案：微批次（microbatch）**。把一个 mini-batch 切成多个小块，让它们依次在 GPU 间流动。前面的微批次算完前向就开始反向，后面的微批次接上来——bubble 被填满了。
 
@@ -312,7 +312,7 @@ Transformer 各层的并行化难度不同：
 
 ## 张量并行 (TP)
 
-![张量并行](/images/lec11_tensor_parallel.png)
+![张量并行](/images/lec11_tensor_parallel.webp)
 
 张量并行把一层内的权重矩阵切分到多个 GPU 上，用分块矩阵乘法并行计算。
 
@@ -333,7 +333,7 @@ $$Z = Y_1 U_1 + Y_2 U_2 + Y_3 U_3 + Y_4 U_4 \quad (\text{各 GPU 计算后直接
 
 ## ND 并行：四面开花
 
-![ND 并行](/images/lec11_nd_parallel.png)
+![ND 并行](/images/lec11_nd_parallel.webp)
 
 对于最大的模型，四种并行策略同时使用：
 

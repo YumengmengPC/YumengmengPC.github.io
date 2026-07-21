@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 10 视频理解
 top: false
-cover: images/cover_lecture10.jpg
+cover: images/cover_lecture10.webp
 toc: true
 mathjax: true
 date: 2026-06-11 14:00:38
@@ -17,11 +17,11 @@ categories: [CS231n学习笔记]
 
 ## 视频理解概述
 
-![视频 = 2D + 时间](/images/lec10_video_2d_time.png)
+![视频 = 2D + 时间](/images/lec10_video_2d_time.webp)
 
 图像分类的目标是识别场景与物体（猫、狗、车），视频分类的目标是识别动作（跑步、游泳、跳跃）。两者的核心差异在于：动作是一个时序概念，仅凭单帧很难区分"跑"和"走"——模型需要观察多帧之间的变化模式。
 
-![视频分类任务](/images/lec10_video_classification.png)
+![视频分类任务](/images/lec10_video_classification.webp)
 
 ---
 
@@ -34,7 +34,7 @@ categories: [CS231n学习笔记]
 
 此外，GPU 显存无法容纳完整的未压缩视频。常规解决方案是同时降低帧率和空间分辨率，并在训练时使用短剪辑（clip）：从原始视频中以低帧率采样 T 帧构成一个 clip，模型只对 clip 进行分类。测试阶段用滑动窗口在多个 clip 上推理并取平均预测结果。
 
-![训练时用短剪辑](/images/lec10_training_clips_1.png)
+![训练时用短剪辑](/images/lec10_training_clips_1.webp)
 
 ---
 
@@ -42,7 +42,7 @@ categories: [CS231n学习笔记]
 
 最直接的做法：对视频中的每一帧独立运行 2D CNN，将所有帧的预测概率取平均。
 
-![Single-Frame CNN](/images/lec10_single_frame_cnn.png)
+![Single-Frame CNN](/images/lec10_single_frame_cnn.webp)
 
 过程分为三步：
 
@@ -60,7 +60,7 @@ Single-Frame CNN 的缺陷在于帧与帧之间没有交互——每帧的特征
 
 ### Late Fusion with FC Layers
 
-![Late Fusion (FC)](/images/lec10_late_fusion_fc.png)
+![Late Fusion (FC)](/images/lec10_late_fusion_fc.webp)
 
 先让 2D CNN 逐帧提取特征，得到 `T × D × H' × W'` 的特征图，然后将所有帧的特征展平并拼接成一个长向量，最后通过 MLP 映射到类别。
 
@@ -68,7 +68,7 @@ Single-Frame CNN 的缺陷在于帧与帧之间没有交互——每帧的特征
 
 ### Late Fusion with Pooling
 
-![Late Fusion (pooling)](/images/lec10_late_fusion_pooling.png)
+![Late Fusion (pooling)](/images/lec10_late_fusion_pooling.webp)
 
 用池化代替拼接：每帧通过 CNN 得到一个 D 维特征向量，对所有帧做平均池化或最大池化，压缩为单个 D 维向量，再接线性层输出类别。
 
@@ -76,7 +76,7 @@ Single-Frame CNN 的缺陷在于帧与帧之间没有交互——每帧的特征
 
 ### Early Fusion
 
-![Early Fusion](/images/lec10_early_fusion.png)
+![Early Fusion](/images/lec10_early_fusion.webp)
 
 在网络的入口处就将所有帧的信息混合：将 T 帧的 RGB 通道沿通道维度堆叠为 `3T × H × W` 的大张量，第一个 2D 卷积层的滤波器也随之变为 `3T × K × K` 的形状，在第一层卷积中直接完成时间维度的融合。之后网络恢复为标准 2D CNN。
 
@@ -84,11 +84,11 @@ Single-Frame CNN 的缺陷在于帧与帧之间没有交互——每帧的特征
 
 ### 3D CNN：时空慢融合
 
-![3D CNN](/images/lec10_3d_cnn.png)
+![3D CNN](/images/lec10_3d_cnn.webp)
 
 Early Fusion 和 Late Fusion 的共性问题在于时间融合要么只在一层完成，要么最后才做。3D CNN 的思想是让整个网络始终保留时间维度，在每一层逐步融合时空信息。
 
-![3D 卷积](/images/lec10_3d_convolution.png)
+![3D 卷积](/images/lec10_3d_convolution.webp)
 
 回顾 2D 卷积：输入 `C × H × W`，卷积核 `C × K_h × K_w`，在 H 和 W 两个方向滑动。3D 卷积在时间维度上额外滑动：输入 `C × T × H × W`，卷积核 `C × K_t × K_h × K_w`，输出为 `T' × H' × W'` 的 3D 特征块。3D 池化同理，在 T、H、W 三个方向上做降采样。
 
@@ -98,7 +98,7 @@ Early Fusion 和 Late Fusion 的共性问题在于时间融合要么只在一层
 
 ## 时间融合策略对比 Comparison of Temporal Fusion Strategies
 
-![融合方式对比](/images/lec10_fusion_comparison.png)
+![融合方式对比](/images/lec10_fusion_comparison.webp)
 
 三种方法的本质差异在于时间融合在网络的哪个阶段完成：
 
@@ -125,13 +125,13 @@ Early Fusion 和 Late Fusion 的共性问题在于时间融合要么只在一层
 
 3D CNN 的计算代价明显更高。C3D（可理解为 3D 版本的 VGG）的计算量约为原始 VGG 的 2.9 倍。
 
-![C3D 架构](/images/lec10_c3d_arch.png)
+![C3D 架构](/images/lec10_c3d_arch.webp)
 
 C3D 的设计遵循 VGG 风格：使用 `3×3×3` 的小卷积核，每隔几层做一次 3D 池化降维。
 
 在 Sports-1M 数据集（100 万个 YouTube 运动视频，487 个类别）的 Top-5 准确率对比：
 
-![Sports-1M 结果](/images/lec10_sports1m_results.png)
+![Sports-1M 结果](/images/lec10_sports1m_results.webp)
 
 - Single-Frame CNN：77.7%
 - Early Fusion：76.8%
@@ -146,7 +146,7 @@ Early Fusion 和 Late Fusion 相比 Single-Frame 没有显著提升，说明仅�
 
 前面的方法都在 RGB 像素空间上操作。换个思路：人类仅凭几个关节光点的运动轨迹就能判断动作类型（Johansson, 1973），这说明运动信息本身就包含充足的判别线索，未必需要完整的外观信息。
 
-![从运动识别动作](/images/lec10_motion_recognition.png)
+![从运动识别动作](/images/lec10_motion_recognition.webp)
 
 ### 光流 Optical Flow
 
@@ -156,9 +156,9 @@ $$I_{t+1}(x + dx, y + dy) = I_t(x, y)$$
 
 位移有水平和垂直两个方向，因此光流可拆分为水平光流和垂直光流两幅图（类似于 2 通道图像）。
 
-![光流示意 1](/images/lec10_optical_flow_1.png)
+![光流示意 1](/images/lec10_optical_flow_1.webp)
 
-![光流示意 2](/images/lec10_optical_flow_2.png)
+![光流示意 2](/images/lec10_optical_flow_2.webp)
 
 光流捕捉的是像素级别的运动模式——肢体的摆动方向、速度大小等低级运动线索，这些恰恰是动作判别的重要依据。
 
@@ -166,7 +166,7 @@ $$I_{t+1}(x + dx, y + dy) = I_t(x, y)$$
 
 利用光流作为运动信息源，二流网络（Two-Stream Networks）将外观与运动分离建模：
 
-![双流网络](/images/lec10_two_stream.png)
+![双流网络](/images/lec10_two_stream.webp)
 
 - **空间流（Spatial Stream）**：输入单帧 RGB 图像，提取外观特征（场景、人物、背景）
 - **时间流（Temporal Stream）**：输入堆叠的多帧光流（水平 + 垂直，形状为 `2(T-1) × H × W`），提取运动特征
@@ -175,7 +175,7 @@ $$I_{t+1}(x + dx, y + dy) = I_t(x, y)$$
 
 运动模式相比外观模式更不易过拟合——因为运动与场景外观无关，同样的"跑步"动作在不同背景下具有相似的位移模式。
 
-![双流网络结果](/images/lec10_two_stream_results.png)
+![双流网络结果](/images/lec10_two_stream_results.webp)
 
 在 UCF-101 数据集上，3D CNN 准确率仅 65.4%，而双流网络（SVM 融合）达到 88.0%。单独的空间流（73.0%）和时间流（83.7%）也有明显贡献，验证了外观和运动信息的互补性。
 
@@ -187,7 +187,7 @@ $$I_{t+1}(x + dx, y + dy) = I_t(x, y)$$
 
 ### CNN + RNN
 
-![CNN+RNN 流水线](/images/lec10_cnn_rnn_pipeline.png)
+![CNN+RNN 流水线](/images/lec10_cnn_rnn_pipeline.webp)
 
 一种自然的扩展是结合 CNN 和 RNN：用 2D 或 3D CNN 逐段提取特征，将特征序列输入 RNN（LSTM）。CNN 负责局部时间窗口内的特征提取，RNN 利用隐藏状态建模全局时序依赖。
 
@@ -195,7 +195,7 @@ $$I_{t+1}(x + dx, y + dy) = I_t(x, y)$$
 
 ### Recurrent Convolutional Network
 
-![Recurrent CNN](/images/lec10_recurrent_cnn.png)
+![Recurrent CNN](/images/lec10_recurrent_cnn.webp)
 
 普通 CNN + RNN 中，CNN 输出的 `C × H × W` 特征图在被送入 RNN 前必须展平为 1D 向量——空间结构在此丢失。Recurrent Convolutional Network 的改进是将 RNN 内部的矩阵乘法替换为卷积操作。
 
@@ -209,7 +209,7 @@ $$h_t = \tanh(W_{hh}h_{t-1} + W_{xh}x_t)$$
 
 RNN 的根本瓶颈在于顺序计算导致的无法并行化。Lecture 8 介绍的自注意力机制恰好解决了这个问题。
 
-![自注意力回顾](/images/lec10_self_attention.png)
+![自注意力回顾](/images/lec10_self_attention.webp)
 
 自注意力的核心公式为：
 
@@ -219,7 +219,7 @@ $$y = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V$$
 
 **Spatio-Temporal Self-Attention（Nonlocal Block）** 将这一机制引入视频的 3D 特征空间：
 
-![Nonlocal Block](/images/lec10_nonlocal_block.png)
+![Nonlocal Block](/images/lec10_nonlocal_block.webp)
 
 流程分解：
 
@@ -241,22 +241,22 @@ $$Output = Conv(Softmax(Q \otimes K^T) \otimes V) + Input$$
 
 图像领域积累了大量成熟的 2D 架构（VGG、ResNet、Inception），I3D（Inflated 3D ConvNet）的目标是直接复用这些架构到视频任务。
 
-![I3D 设计思路](/images/lec10_i3d_inflating.png)
+![I3D 设计思路](/images/lec10_i3d_inflating.webp)
 
 核心操作：将 2D CNN 架构中的每个 2D 卷积与池化层替换为对应的 3D 版本。
 
 - 2D 卷积 `K_h × K_w` → 3D 卷积 `K_t × K_h × K_w`
 - 2D 池化 `P_h × P_w` → 3D 池化 `P_t × P_h × P_w`
 
-![Inception 2D](/images/lec10_inception_2d.png)
+![Inception 2D](/images/lec10_inception_2d.webp)
 
-![Inception 3D 膨胀后](/images/lec10_inception_3d.png)
+![Inception 3D 膨胀后](/images/lec10_inception_3d.webp)
 
 以 Inception 模块为例：`3×3 Conv` 变为 `3×3×3 Conv`，`5×5 Conv` 变为 `5×5×5 Conv`，池化和拼接操作也升级到 3D。架构拓扑完全不变，仅维度升了一级。
 
 此外，权重可从 2D 预训练模型迁移：将 2D 卷积核在时间维度上复制 N 次后除以 N，等价于同一个滤波器沿时间轴均匀初始化，加速训练收敛。
 
-![I3D 结果](/images/lec10_i3d_results.png)
+![I3D 结果](/images/lec10_i3d_results.webp)
 
 在 Kinetics-400 数据集上，Inception-v1 的 I3D（RGB 流）Top-1 准确率为 71.1%，RGB + 光流两流版本达到 74.2%，显著优于单帧 CNN（62.2%）和 CNN+LSTM（63.3%）。
 
@@ -264,7 +264,7 @@ $$Output = Conv(Softmax(Q \otimes K^T) \otimes V) + Input$$
 
 ## 视频模型全景 Video Model Landscape
 
-![视频模型基准](/images/lec10_video_benchmarks.png)
+![视频模型基准](/images/lec10_video_benchmarks.webp)
 
 2014 至 2025 年视频模型在 Kinetics-400 上的演进：
 
@@ -287,7 +287,7 @@ Vision Transformer 迁移到视频领域（VideoMAE、MViT 等）将 Top-1 推�
 
 Lecture 9 介绍的 Saliency Maps 和 Grad-CAM 方法可直接应用于视频模型。
 
-![可视化](/images/lec10_visualization.png)
+![可视化](/images/lec10_visualization.webp)
 
 对双流网络的 RGB 流与光流流分别计算梯度反向传播，可视化结果展示了不同通道关注的不同信息维度：
 
@@ -303,7 +303,7 @@ Lecture 9 介绍的 Saliency Maps 和 Grad-CAM 方法可直接应用于视频模
 
 前面的方法仅对短视频剪辑做出单一分类——假设 clip 中只包含一种动作。真实场景中一段长视频可能依次包含多种动作。
 
-![时序动作定位](/images/lec10_temporal_localization.png)
+![时序动作定位](/images/lec10_temporal_localization.webp)
 
 **时序动作定位（Temporal Action Localization）** 的任务是：给定一段未裁剪的长视频，找出每个动作的起始时间、结束时间和类别标签。
 

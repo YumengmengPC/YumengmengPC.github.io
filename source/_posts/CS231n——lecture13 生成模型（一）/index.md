@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 13 生成模型（一）
 top: false
-cover: images/cover_lecture13.jpg
+cover: images/cover_lecture13.webp
 toc: true
 mathjax: true
 date: 2026-06-15 17:34:54
@@ -71,7 +71,7 @@ SimCLR 是最经典实现——核心就是拉近正样本对、推开负样本�
 * **生成模型（Generative）**：学 $p(X)$——数据本身的分布
 * **条件生成模型（Conditional Generative）**：学 $p(X|Y)$——给定标签，图片的分布
 
-![判别模型与生成模型](/images/lec13_discriminative.png)
+![判别模型与生成模型](/images/lec13_discriminative.webp)
 
 ### 概率密度的归一化约束
 
@@ -139,7 +139,7 @@ $$p(Y|X) = \frac{p(X|Y) \cdot p(Y)}{p(X)}$$
 
 整个领域按一个核心问题划分：**能不能算出 $p(X)$ 的数值？**
 
-![生成模型分类](/images/lec13_taxonomy.png)
+![生成模型分类](/images/lec13_taxonomy.webp)
 
 ### 显式密度（Explicit Density）
 
@@ -185,7 +185,7 @@ $$p(x) = \prod_{t=1}^{T} p(x_t | x_{<t})$$
 
 把数据看作序列 $x_1, x_2, ..., x_T$，每个 $p(x_t | x_{<t})$ 比 $p(x)$ 简单得多——只需预测"下一个是什么"。
 
-![自回归模型](/images/lec13_autoregressive.png)
+![自回归模型](/images/lec13_autoregressive.webp)
 
 这就把一个超高维联合分布建模问题变成了 T 个低维条件分布预测问题。用参数共享的方式，一个网络学会所有位置的条件分布。
 
@@ -202,7 +202,7 @@ $$p(x) = \prod_{t=1}^{T} p(x_t | x_{<t})$$
 
 一种直接做法：逐像素、逐通道展开成一维序列。$32 \times 32 \times 3$ → 3072 个值（每像素 R、G、B 各 0-255）。每个位置预测 256 个可能值之一——256 路分类问题。
 
-![PixelCNN](/images/lec13_autoencoder.png)
+![PixelCNN](/images/lec13_autoencoder.webp)
 
 PixelCNN / PixelRNN 用掩码卷积确保每像素只看"之前"的像素（光栅扫描顺序：从上到下、从左到右）。每个像素由三个子像素（R、G、B）组成，逐子像素预测。
 
@@ -238,7 +238,7 @@ PixelCNN / PixelRNN 用掩码卷积确保每像素只看"之前"的像素（光�
 
 出发点：**给自动编码器加概率结构，让隐空间 Z 服从已知分布。** VAE 是传统编码器的概率版本——从原始数据学潜在特征 Z，在 Z 上强制执行概率结构，推理时从中采样生成新样本。
 
-![VAE 概览](/images/lec13_vae_overview.png)
+![VAE 概览](/images/lec13_vae_overview.webp)
 
 ### 概率生成过程
 
@@ -296,7 +296,7 @@ $$\log p_\theta(x) = \log \int p_\theta(x, z) \, dz$$
 
 $$\log p_\theta(x) = \underbrace{\mathbb{E}_{z \sim q_\phi(z|x)}[\log p_\theta(x|z)]}_{\text{重建项}} - \underbrace{D_{KL}(q_\phi(z|x) \| p(z))}_{\text{KL 正则项}} + \underbrace{D_{KL}(q_\phi(z|x) \| p_\theta(z|x))}_{\text{无法计算}}$$
 
-![ELBO 推导](/images/lec13_elbo.png)
+![ELBO 推导](/images/lec13_elbo.webp)
 
 最后一项 $D_{KL}(q_\phi(z|x) \| p_\theta(z|x))$ 包含真实后验 $p_\theta(z|x)$，不可计算。
 
@@ -328,7 +328,7 @@ $$z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon, \quad \varepsilon \sim \ma
 
 ### 训练与采样
 
-![VAE 训练](/images/lec13_vae_training.png)
+![VAE 训练](/images/lec13_vae_training.webp)
 
 联合训练编码器 $q_\phi$ 和解码器 $p_\theta$，共同最大化 ELBO：
 
