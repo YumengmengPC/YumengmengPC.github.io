@@ -18,14 +18,13 @@ hexo.extend.filter.register('after_post_render', function (data) {
   const src = /^(https?:)?\/\//.test(cover) ? cover : '/' + cover.replace(/^\/+/, '');
   const alt = escapeHtml(data.title || '') + ' 封面';
 
-  // 用背景图而非 <img>：主题的图片查看器抓 ".md img:not(.emoji):not(.vemoji)"，
-  // 会把命中的 img 包进三层带内联样式的 div（其中一层是 fit-content），把尺寸拉回
-  // 图片原始大小，任何外部 CSS 都要靠 !important 才压得住。背景图它不认，尺寸就完全
-  // 由 figure 说了算。顶部 banner 已用同一张图，此处走浏览器缓存，几乎不产生额外开销。
-  // role + aria-label 保留无障碍语义。
+  // 用 <img> 而非背景图：封面要按原图比例完整显示、不裁切，高度得随宽度自适应，
+  // 背景图做不到这点（contain 会留白，cover 会裁）。代价是主题的图片查看器会接管它，
+  // 见下方 CSS 里的说明。顶部 banner 已用同一张图，此处走浏览器缓存。
   data.content =
-    `<figure class="post-cover-inline" role="img" aria-label="${alt}"` +
-    ` style="background-image:url(&quot;${escapeHtml(src)}&quot;)"></figure>` +
+    `<figure class="post-cover-inline">` +
+    `<img src="${escapeHtml(src)}" alt="${alt}" loading="eager" decoding="async" fetchpriority="high">` +
+    `</figure>` +
     data.content;
 });
 
@@ -37,15 +36,26 @@ hexo.extend.filter.register('after_render:html', function (html) {
 .post-cover-inline {
   margin: 0 0 2em;
   width: 100%;
-  height: 420px;
   border-radius: 12px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  line-height: 0;
+}
+/* 主题的图片查看器匹配 ".md img:not(.emoji):not(.vemoji)"，会把命中的图包进三层
+   带内联样式的 div，其中一层是 width:fit-content，把尺寸钉回图片原始大小。内联样式
+   压过任何选择器，只有作者 !important 能盖过它——所以这里的 !important 是必需的，
+   不是保险起见。作用范围限定在本 figure 内，不影响正文其他配图。 */
+.post-cover-inline div {
+  width: 100% !important;
+  height: auto !important;
+}
+.post-cover-inline img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: unset !important;
 }
 @media (max-width: 767px) {
   .post-cover-inline {
-    height: 220px;
     margin-bottom: 1.5em;
     border-radius: 8px;
   }
