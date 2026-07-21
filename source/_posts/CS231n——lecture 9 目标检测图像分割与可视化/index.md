@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 9 目标检测、图像分割与可视化
 top: false
-cover: images/cover_lecture9.jpg
+cover: images/cover_lecture9.webp
 toc: true
 mathjax: true
 date: 2026-06-10 16:59:47
@@ -48,7 +48,7 @@ $$\text{SwiGLU}(x) = (xW_1 \odot \text{Swish}(xW_2)) W_3$$
 
 ## 计算机视觉任务全景
 
-![CV 四大核心任务](/images/lec9_cv_tasks_overview.png)
+![CV 四大核心任务](/images/lec9_cv_tasks_overview.webp)
 
 从简单到复杂，CV 任务可以排成一条线：
 
@@ -73,7 +73,7 @@ $$\text{SwiGLU}(x) = (xW_1 \odot \text{Swish}(xW_2)) W_3$$
 
 FCN 的思路更直接：整个网络全是卷积层，输入一整张图，输出就是一张逐像素的类别图。网络内部做**下采样**（降低分辨率、增大感受野），然后**上采样**恢复到原图大小。
 
-![全卷积网络 encoder-decoder 结构](/images/lec9_fcn_architecture.png)
+![全卷积网络 encoder-decoder 结构](/images/lec9_fcn_architecture.webp)
 
 **下采样方式**：步幅卷积（strided conv）、池化（max/average pool）
 
@@ -81,9 +81,9 @@ FCN 的思路更直接：整个网络全是卷积层，输入一整张图，输�
 - 非学习的：最近邻插值、"反池化"（记住池化时最大值的位置，上采样时填回去）
 - 学习的：**转置卷积**（transposed convolution）——本质上是可学习的上采样核，在低分辨率特征图上滑动并对重叠区域求和
 
-![反池化示意](/images/lec9_unpooling.png)
+![反池化示意](/images/lec9_unpooling.webp)
 
-![转置卷积：可学习的上采样](/images/lec9_transposed_conv.png)
+![转置卷积：可学习的上采样](/images/lec9_transposed_conv.webp)
 
 直觉：转置卷积就是普通卷积的"反向操作"——输入小图，输出大图，核的参数通过反向传播学习。
 
@@ -91,7 +91,7 @@ FCN 的思路更直接：整个网络全是卷积层，输入一整张图，输�
 
 FCN 的问题是下采样过程中丢失了精细的空间信息，上采样时很难恢复锐利的边界。U-Net 的解决方案简单优雅：**跳跃连接**。
 
-![U-Net 架构](/images/lec9_unet_architecture.png)
+![U-Net 架构](/images/lec9_unet_architecture.webp)
 
 编码器（下采样路径）和译码器（上采样路径）对称排列，编码器每一层的特征图直接拼接到译码器对应层。这样上采样时可以同时利用全局语义（来自深层）和局部细节（来自浅层跳跃连接）。
 
@@ -101,7 +101,7 @@ U-Net 最早是医学图像分割领域提出的，现在已经是各种分割�
 
 ## 目标检测
 
-![目标检测问题定义](/images/lec9_object_detection_intro.png)
+![目标检测问题定义](/images/lec9_object_detection_intro.webp)
 
 任务比分类和分割都复杂：找出图中**所有**感兴趣的对象，给每个对象一个边界框和一个类别标签。
 
@@ -125,7 +125,7 @@ $$\mathcal{L} = \mathcal{L}_{\text{softmax}} + \lambda \cdot \mathcal{L}_{L2}(\t
 
 R-CNN 家族是"两阶段"方法：先提案、再分类。**YOLO（You Only Look Once）** 把整个过程压缩成一次前向传播：
 
-![YOLO 网格检测](/images/lec9_yolo_grid.png)
+![YOLO 网格检测](/images/lec9_yolo_grid.webp)
 
 - 把图像分成 $S \times S$ 的网格
 - 每个格子预测 B 个边界框（坐标 + 是否包含物体的置信度）和 C 个类别的概率
@@ -139,7 +139,7 @@ YOLO 的核心优势：快。适合实时检测场景。代价是对小物体和
 
 DETR（Detection Transformer）把目标检测重新定义为一个**集合预测问题**。
 
-![DETR 架构](/images/lec9_detr_architecture.png)
+![DETR 架构](/images/lec9_detr_architecture.webp)
 
 流程：
 1. 用 CNN backbone 提取图像特征 → 得到一组特征 token
@@ -156,7 +156,7 @@ DETR 的损失函数需要**二分图匹配**（Hungarian 算法）：先把预�
 
 ## 实例分割与 Mask R-CNN Instance Segmentation and Mask R-CNN
 
-![Mask R-CNN 架构](/images/lec9_mask_rcnn.png)
+![Mask R-CNN 架构](/images/lec9_mask_rcnn.webp)
 
 语义分割只管"这个像素是什么类别"，不管"这两个像素是不是同一个物体"。实例分割在语义分割的基础上给同一类别的不同个体画轮廓。
 
@@ -178,7 +178,7 @@ $$S(x) = \left|\frac{\partial \text{score}_c}{\partial x}\right|$$
 
 梯度大的像素就是"稍微改变一下就会明显影响分类结果"的区域。把这个梯度图可视化，就能看到模型重点关注哪里。
 
-![Saliency Maps 示意](/images/lec9_saliency_maps.png)
+![Saliency Maps 示意](/images/lec9_saliency_maps.webp)
 
 ### CAM（Class Activation Mapping）
 
@@ -192,7 +192,7 @@ $$\text{CAM}_c = \sum_k w_k^c \cdot F_k$$
 
 Grad-CAM 解除了 CAM 的架构限制：对任意卷积层的输出，把梯度在这个层的空间维度上做平均作为权重，再和特征图线性组合。
 
-![Grad-CAM 示意](/images/lec9_grad_cam.png)
+![Grad-CAM 示意](/images/lec9_grad_cam.webp)
 
 $$\alpha_k^c = \frac{1}{Z} \sum_i \sum_j \frac{\partial y^c}{\partial A_{ij}^k}$$
 

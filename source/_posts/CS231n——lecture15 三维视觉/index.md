@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 15 三维视觉
 top: false
-cover: images/cover_lecture15.jpg
+cover: images/cover_lecture15.webp
 toc: true
 mathjax: true
 date: 2026-06-16 21:37:15
@@ -21,7 +21,7 @@ categories: [CS231n学习笔记]
 
 ## 3D 表示的两大阵营
 
-![3D 表示分类](/images/lec15_repr_taxonomy.png)
+![3D 表示分类](/images/lec15_repr_taxonomy.webp)
 
 所有 3D 表示方法可以分成**显式**和**隐式**两大类，区别在于"怎么定义形状的存在"。
 
@@ -37,7 +37,7 @@ categories: [CS231n学习笔记]
 
 ### 点云 Point Clouds
 
-![点云示例](/images/lec15_pointcloud.png)
+![点云示例](/images/lec15_pointcloud.webp)
 
 点云是最简单的 3D 表示：一堆三维坐标点的集合，就是一个 $3 \times N$ 的矩阵，每一列是 $(x, y, z)$ 坐标。如果每个点还附带了法向量（表示该点所在表面朝向哪个方向），就称为 surfel。除此之外没有其他信息——不知道哪些点之间构成一个面，也不知道点的密度分布是否均匀。
 
@@ -69,7 +69,7 @@ categories: [CS231n学习笔记]
 
 ### 显式表示的共同短板
 
-![显式表示的困境](/images/lec15_explicit_implicit.png)
+![显式表示的困境](/images/lec15_explicit_implicit.webp)
 
 显式表示有一个共同的短板：很难判断一个任意空间点是在物体内部还是外部。给你一个三角网格和一个坐标 $(x, y, z)$，判断这个点在网格里面还是外面，需要做**射线投射 (Ray Casting)**——从该点向任意方向射一条线，数它与网格面的交点数。奇数个交点说明在内部，偶数个说明在外部。这个过程计算量大，而且非常依赖数值精度——射线恰好擦过顶点或与面共面时，结果不稳定。
 
@@ -81,7 +81,7 @@ categories: [CS231n学习笔记]
 
 ### 基本思想
 
-![隐式表面方程](/images/lec15_implicit_surface.png)
+![隐式表面方程](/images/lec15_implicit_surface.webp)
 
 隐式表示用一个标量函数 $f(x, y, z)$ 来定义形状：
 
@@ -111,7 +111,7 @@ $$
 
 ### 符号距离函数 SDF
 
-![距离函数](/images/lec15_distance_func.png)
+![距离函数](/images/lec15_distance_func.webp)
 
 布尔运算虽然精确，但产生的表面在交接处是硬边——两个形状的并集在交界处有个锐利的折痕。**符号距离函数 (SDF, Signed Distance Function)** 提供了更灵活的融合方式。
 
@@ -119,7 +119,7 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 ### 水平集 Level Sets 与体素 Voxels
 
-![体素表示](/images/lec15_voxels.png)
+![体素表示](/images/lec15_voxels.webp)
 
 实际中很多情况下 $f$ 的解析形式不可知。一个实用的做法是预先在一个 3D 网格的每个格点上计算距离函数的值，存储到一个三维数组里。这个数组就是**水平集 (Level Set)** 表示——它把隐式函数离散化了。即便不知道 $f$ 的解析形式，光看数组的正负值分布就能找到边界：正值和负值交界处就是表面。在正负值之间做线性插值，可以精确定位 $f = 0$ 的点。**Marching Cubes** 算法遍历所有相邻格点对，检测符号变化，生成三角网格表面——这是隐式表示转显式表示的标准方法。
 
@@ -151,7 +151,7 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 ## AI + 几何：三类任务
 
-![AI + Geometry 任务分类](/images/lec15_tasks.png)
+![AI + Geometry 任务分类](/images/lec15_tasks.webp)
 
 3D 视觉任务按概率视角可以分成三大类。
 
@@ -167,7 +167,7 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 ### Multi-View CNN
 
-![Multi-View CNN](/images/lec15_multiview_cnn.png)
+![Multi-View CNN](/images/lec15_multiview_cnn.webp)
 
 最早把深度学习引入 3D 的思路非常直觉化：既然 2D CNN 已经很成熟了，那就把 3D 模型从多个固定角度渲染成 2D 图片，每张图片过同一个 CNN 提取特征，然后所有视角的特征做逐元素 max-pooling（称为 View Pooling），聚合成一个固定维度的形状描述子，最后再过第二个 CNN 做分类。
 
@@ -181,15 +181,15 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 **3D-GANs** 将 GAN 的生成器输出从 2D 图像换成 3D 体素占用网格：从潜码通过 3D 反卷积上采样到 $32^3$ 或 $64^3$ 的分辨率，判别器用 3D 卷积判断整个体素网格是真实模型还是生成的。这是早期 3D 无条件生成的里程碑工作。
 
-![3D-GANs](/images/lec15_3dgan.png)
+![3D-GANs](/images/lec15_3dgan.webp)
 
 **Visual Object Networks (VON)** 在 3D-GAN 的基础上加入了可微投影和纹理生成，实现了三个因素的可解耦控制：形状码控制 3D 几何，纹理码控制表面外观，视角参数控制渲染相机位置。改变形状码而固定纹理码，就能在保持颜色外观不变的情况下改变物体几何；反之外观也可独立编辑。VON 的生成管线是：形状网络输出体素 → 可微投影生成深度图和剪影 → 纹理网络生成外观 → 合成 2D 渲染图，然后用 2D 判别器判断真实性。
 
-![Visual Object Networks](/images/lec15_voxel_cnn.png)
+![Visual Object Networks](/images/lec15_voxel_cnn.webp)
 
 ### Octree 表示：向空区域宣战
 
-![Octree 表示](/images/lec15_octree.png)
+![Octree 表示](/images/lec15_octree.webp)
 
 体素最大的浪费在于空区域——物体只占体积的一小部分，但均匀网格在空区域和表面区域花同样的存储和计算。**八叉树 (Octree)** 用分治策略解决这个问题：递归地将空间分成八等份，只有包含表面信号的子区域才继续细分，空区域就保持为大块体素。树的深度控制了表面附近的分辨率——靠近表面的叶子节点小，远离表面的叶子节点大。
 
@@ -205,7 +205,7 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 ### 排列不变性
 
-![PointNet 不变性](/images/lec15_pointnet_perm.png)
+![PointNet 不变性](/images/lec15_pointnet_perm.webp)
 
 神经网络把输入看作一个有序向量——$[x_1, x_2, ..., x_N]$ 和 $[x_N, ..., x_2, x_1]$ 是两个不同的输入。但点云是一个**无序集合**：点的存储顺序和 3D 形状毫无关系，打乱顺序后表示的仍然是同一个物体。这就要求模型具备**排列不变性 (Permutation Invariance)**——输出不随输入点的排序而改变。
 
@@ -213,7 +213,7 @@ SDF 的值定义为空间中任意点到最近表面的带符号距离：内部�
 
 ### 对称函数构造
 
-![PointNet 架构](/images/lec15_pointnet_arch.png)
+![PointNet 架构](/images/lec15_pointnet_arch.webp)
 
 PointNet 的核心设计：每个点独立通过一个共享权重的 MLP 映射到高维特征空间（比如从 $(x, y, z)$ 升维到 1024 维），然后在所有点的特征上做一个对称聚合算子——max-pooling。max-pooling 的输出与输入顺序无关：无论你按什么顺序排列点，对每个特征维度取最大值的结果是一样的。这就是排列不变性的来源。
 
@@ -261,7 +261,7 @@ AtlasNet 提了一个不同的问题：与其让网络直接从潜码回归一�
 
 ### 核心思路与早期工作
 
-![Deep Implicit Functions](/images/lec15_deep_implicit.png)
+![Deep Implicit Functions](/images/lec15_deep_implicit.webp)
 
 AtlasNet 学的是显式参数化——从 $(u, v)$ 到 $(x, y, z)$。**神经隐式函数**学的是另一种查询：给定 3D 坐标，输出这个位置是物体内部还是外部。形式上就是用一个神经网络来拟合一个**占用函数 (Occupancy Function)** $o_\theta(x, y, z) \in [0, 1]$ 或**符号距离函数** $d_\theta(x, y, z) \in \mathbb{R}$。
 
@@ -271,7 +271,7 @@ AtlasNet 学的是显式参数化——从 $(u, v)$ 到 $(x, y, z)$。**神经�
 
 ### NeRF：可微体积渲染
 
-![NeRF](/images/lec15_nerf.png)
+![NeRF](/images/lec15_nerf.webp)
 
 NeRF (Neural Radiance Fields, ECCV 2020) 在前面的隐式函数基础上加了一个维度——不仅查询几何属性，还查询**外观属性**。NeRF 的 MLP 输入是 $(x, y, z, \theta, \phi)$——3D 空间位置加 2D 视角方向，输出两个值：该点的**密度** $\sigma$（只和位置有关，与视角无关）和**辐射度** $\mathbf{c}$（颜色，同时依赖位置和视角方向，所以能建模镜面反射等视角相关效果）。
 
@@ -295,13 +295,13 @@ NeRF 的辐射场是一个确定的场景表示——给定场景就是固定的
 
 ## 3D Gaussian Splatting
 
-![NeRF vs 3DGS](/images/lec15_nerf_vs_3dgs.png)
+![NeRF vs 3DGS](/images/lec15_nerf_vs_3dgs.webp)
 
 NeRF 有一个结构性的效率问题：光线穿过大量空区域时，每个采样点都要过一遍 MLP 求密度和颜色。虽然大部分空区域的密度为零或接近零、对最终像素几乎没有贡献，但这些查询仍然被计算了。渲染一张图需要百万量级的网络查询，远达不到实时。
 
 **3D Gaussian Splatting (3DGS, SIGGRAPH 2023)** 换了一个完全不同的思路：用一堆**各向异性的 3D 高斯椭球体**来表示场景，每个高斯有自己的一组参数——3D 中心位置、3D 协方差矩阵（控制椭球的形状、大小和朝向）、不透明度 $\alpha$、以及用球谐函数系数表示的颜色（支持视角相关的着色效果）。关键约束：高斯只放在密度不为零的地方。
 
-![3D Gaussian Splatting](/images/lec15_3dgs.png)
+![3D Gaussian Splatting](/images/lec15_3dgs.webp)
 
 渲染时不再逐点采样 + 体积积分，而是把所有高斯投影到图像平面上，按深度排序后用 alpha blending 从近到远合成像素颜色——这是 rasterization 而不是 ray marching，可以用 GPU 光栅化管线高效实现。
 
@@ -311,7 +311,7 @@ NeRF 有一个结构性的效率问题：光线穿过大量空区域时，每个
 
 ## 结构感知表示
 
-![结构感知表示](/images/lec15_structure_aware.png)
+![结构感知表示](/images/lec15_structure_aware.webp)
 
 前面所有的表示——点云、网格、体素、隐式函数、辐射场、高斯椭球——都只关心一个问题：表面在哪里。它们不关心另一个同样重要的问题：这个形状由哪些零件组成，零件之间是什么关系。
 

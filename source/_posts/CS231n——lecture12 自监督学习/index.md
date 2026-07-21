@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 12 自监督学习
 top: false
-cover: images/cover_lecture12.jpg
+cover: images/cover_lecture12.webp
 toc: true
 mathjax: true
 date: 2026-06-13 17:32:11
@@ -21,7 +21,7 @@ categories: [CS231n学习笔记]
 
 先回顾一下我们有什么：训练好的 CNN 或 ViT 编码器能把图像映射成紧凑的特征向量，在这个特征空间里，语义相近的图片靠得很近——可以做最近邻检索、线性分类，效果都不错。
 
-![自监督学习概览](/images/lec12_ssl_pipeline.png)
+![自监督学习概览](/images/lec12_ssl_pipeline.webp)
 
 但问题是，有监督训练这种编码器需要海量标注。分类还好，如果是语义分割——每个像素都要标——成本直接爆炸。
 
@@ -39,7 +39,7 @@ categories: [CS231n学习笔记]
 - **迁移阶段**：扔掉解码器，保留编码器
 - **下游阶段**：在少量有标签数据上接一个新分类头，做线性探测或全微调
 
-![SSL 评估流程](/images/lec12_evaluation.png)
+![SSL 评估流程](/images/lec12_evaluation.webp)
 
 编码器和解码器可以是完全不同的网络架构——编码器通常比较重（ResNet、ViT），解码器则相对轻量，反正训练完就扔了。这种不对称设计在后面 MAE 那里会看到更极致的版本。
 
@@ -63,7 +63,7 @@ categories: [CS231n学习笔记]
 
 第一类自监督方法直接对图像做各种变换，让模型去"还原"或"识别"这些变换。
 
-![Pretext 任务目录](/images/lec12_pretext_tasks.png)
+![Pretext 任务目录](/images/lec12_pretext_tasks.webp)
 
 这些任务的标签都是从变换本身自动生成的，不需要任何人工参与。
 
@@ -71,7 +71,7 @@ categories: [CS231n学习笔记]
 
 这是最直观的 pretext 任务之一。随机旋转输入图像（0°、90°、180°、270°），让模型预测旋转了多少度——一个四分类问题。
 
-![旋转预测](/images/lec12_rotation.png)
+![旋转预测](/images/lec12_rotation.webp)
 
 直觉：模型要能判断"这张图被旋转了 90°"，就必须知道正常姿态下的物体长什么样。一只猫如果头朝下，模型得认出"正常猫不是这个方向的"——它被迫学到了物体的朝向和形状先验，也就是所谓的"视觉常识"（visual common sense）。
 
@@ -96,7 +96,7 @@ Noroozi & Favaro 2016 的"解决拼图"方法在多个下游任务上超越了�
 
 随机遮掉图像的一部分，让模型把缺失区域补回来。
 
-![图像修复](/images/lec12_inpainting.png)
+![图像修复](/images/lec12_inpainting.webp)
 
 编码器看到的是被遮了一块的图像，解码器输出重建后的完整图像。训练时计算 **只在遮罩区域的 L2 重建损失**——没被遮的地方不管，因为模型可以直接抄作业。
 
@@ -114,7 +114,7 @@ $$
 
 直觉：灰度图里其实有很多颜色线索——草地一般是绿的、天空是蓝的、皮肤是暖色调的。模型为了着色准确，必须学会识别物体材质和类别。
 
-![Split-brain 自编码器](/images/lec12_colorization.png)
+![Split-brain 自编码器](/images/lec12_colorization.webp)
 
 Zhang et al. 2017 提出了一种 split-brain 自编码器架构：把图像拆成两组通道，一个子网络从 X1 预测 X2，另一个从 X2 预测 X1，然后把两组特征拼起来作为最终表征。这样做的好处是不浪费任何通道信息。
 
@@ -126,7 +126,7 @@ Zhang et al. 2017 提出了一种 split-brain 自编码器架构：把图像拆�
 
 直觉：视频中同一个物体在不同帧之间颜色应该保持一致——如果参考帧里那个皮球是红色的，它在后面的帧里也应该是红色的。模型为了做到这一点，必须在特征空间里**隐式地追踪物体运动**。
 
-![视频着色](/images/lec12_colorization.png)
+![视频着色](/images/lec12_colorization.webp)
 
 具体做法：对参考帧和目标帧分别跑 CNN 提取特征，然后在参考帧特征上计算注意力图，用注意力权重来"搬运"参考帧的颜色。整个过程迫使模型学习运动轨迹和物体对应关系——有意思的是，学到的注意力图可以直接用来做**物体追踪和姿态关键点传播**，完全是副产品。
 
@@ -144,7 +144,7 @@ Zhang et al. 2017 提出了一种 split-brain 自编码器架构：把图像拆�
 
 在讲对比学习之前，先看一个把重建思路做到极致的工作——Masked Autoencoder（MAE）。
 
-![MAE 架构](/images/lec12_mae.png)
+![MAE 架构](/images/lec12_mae.webp)
 
 MAE 的核心思想很暴力：随机遮掉图片 75% 的 patch，只用剩下的 25% 去重建整张图。遮得这么狠是有道理的：
 
@@ -207,7 +207,7 @@ MAE 的设计空间很大，He et al. 2021 的消融实验覆盖了这些维度�
 
 ### 核心直觉
 
-![对比学习直觉](/images/lec12_contrastive.png)
+![对比学习直觉](/images/lec12_contrastive.webp)
 
 很简单：同一张图的两个不同视角/变换（positive pair）在特征空间里应该**靠近**，不同图的特征应该**远离**。
 
@@ -235,7 +235,7 @@ $$
 
 SimCLR（Chen et al. 2020）把对比学习简化到了极致。
 
-![SimCLR 框架](/images/lec12_simclr.png)
+![SimCLR 框架](/images/lec12_simclr.webp)
 
 核心流程：
 
@@ -259,7 +259,7 @@ SimCLR（Chen et al. 2020）把对比学习简化到了极致。
 
 MoCo（He et al. 2020）解决的就是 SimCLR 的大批量依赖问题。
 
-![MoCo 架构](/images/lec12_moco.png)
+![MoCo 架构](/images/lec12_moco.webp)
 
 MoCo 的核心洞察：**负样本不一定非得来自同一个 batch。** 它的做法是：
 

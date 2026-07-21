@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 4 神经网络与反向传播
 top: false
-cover: images/cover_lecture4.jpg
+cover: images/cover_lecture4.webp
 toc: true
 mathjax: true
 date: 2026-06-02 13:06:16

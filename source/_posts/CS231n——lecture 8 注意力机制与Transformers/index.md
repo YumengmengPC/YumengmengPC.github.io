@@ -1,7 +1,7 @@
 ---
 title: CS231n——Lecture 8 注意力机制与Transformers
 top: false
-cover: images/cover_lecture8.jpg
+cover: images/cover_lecture8.webp
 toc: true
 mathjax: true
 date: 2026-06-10 13:51:02
@@ -61,7 +61,7 @@ Transformer 已经是现在深度学习最常使用的架构。最初为机器�
 
 这种设计的副产品也很有价值——你可以通过观察注意力权重的分布来理解模型的"思考过程"。典型的序列到序列翻译任务中，注意力矩阵往往呈对角线分布（一一对应的单词对齐），也可能出现交叉对齐（语序不一致时的重排）。这种可视化本身就成了模型可解释性分析的有力工具。
 
-![注意力对齐矩阵：对角线模式显示输入输出一一对应](/images/attention_weights_visualization.png)
+![注意力对齐矩阵：对角线模式显示输入输出一一对应](/images/attention_weights_visualization.webp)
 
 ---
 
@@ -83,7 +83,7 @@ Transformer 已经是现在深度学习最常使用的架构。最初为机器�
 
 类比数据库检索：你有一个查询 Q，每个数据项有一个键 K 用于匹配、一个值 V 作为检索内容。Q 跟所有 K 比一下相似度 → softmax 得到权重 → 用权重把 V 组合起来 → 输出。
 
-![Scaled Dot-Product Attention](/images/arxiv_attention_scaled_dot.png)
+![Scaled Dot-Product Attention](/images/arxiv_attention_scaled_dot.webp)
 
 ### K 和 V 从哪里来？
 
@@ -124,11 +124,11 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right) V
 
 $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
-![自注意力：输入向量投影为 Q、K、V 三组](/images/attention_layer_QKV.png)
+![自注意力：输入向量投影为 Q、K、V 三组](/images/attention_layer_QKV.webp)
 
 后续计算完全一样：$QK^T$ → scale → softmax → 乘以 V。
 
-![自注意力的输出 = 对各位置 value 的加权和](/images/self_attention_overview.png)
+![自注意力的输出 = 对各位置 value 的加权和](/images/self_attention_overview.webp)
 
 现在有三个可学习的矩阵了（$W_Q, W_K, W_V$）。实现上可以把 QKV 投影**融合成一次矩阵乘法**——把三个权重矩阵拼成一个大的 $W_{QKV}$，一次 matmul 直接产出拼接好的 Q、K、V 张量，再按维度切开——GPU 上更高效。
 
@@ -156,15 +156,15 @@ $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
 **多头注意力**的做法简单粗暴：并行运行 $h$ 个独立的注意力头，每个头有自己的 $W_Q^{(i)}, W_K^{(i)}, W_V^{(i)}$。
 
-![多头注意力：多组独立 QKV 投影并行计算](/images/multihead_overview.png)
+![多头注意力：多组独立 QKV 投影并行计算](/images/multihead_overview.webp)
 
 每个头独立算一遍注意力，然后把各头的输出拼接起来，再经过一个线性投影融合。
 
-![Multi-Head Attention](/images/arxiv_attention_multihead.png)
+![Multi-Head Attention](/images/arxiv_attention_multihead.webp)
 
 $$\text{MultiHead}(X) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \cdot W_O$$
 
-![多头注意力：各头输出拼接后线性投影](/images/multihead_concat.png)
+![多头注意力：各头输出拼接后线性投影](/images/multihead_concat.webp)
 
 不同头之间架构完全一样、计算完全一样，**只有权重不一样**。不同的随机初始化导致各头学会关注不同的模式——有的头可能专门捕捉位置关系，有的头捕捉语义相似性，有的关注主谓搭配……
 
@@ -197,9 +197,9 @@ RNN 的痛点是并行——每个时间步依赖上一步的结果，整条序�
 3. **逐位置前馈网络 / MLP**（每个位置独立做非线性变换）
 4. **残差连接 + LayerNorm**
 
-![Transformer 完整架构](/images/arxiv_transformer_arch.png)
+![Transformer 完整架构](/images/arxiv_transformer_arch.webp)
 
-![Transformer Block 内部的残差连接与 LayerNorm](/images/transformer_block_detail.png)
+![Transformer Block 内部的残差连接与 LayerNorm](/images/transformer_block_detail.webp)
 
 写成伪代码：
 
