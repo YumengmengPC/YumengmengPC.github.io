@@ -18,11 +18,14 @@ hexo.extend.filter.register('after_post_render', function (data) {
   const src = /^(https?:)?\/\//.test(cover) ? cover : '/' + cover.replace(/^\/+/, '');
   const alt = escapeHtml(data.title || '') + ' 封面';
 
-  // eager + fetchpriority：正文首屏图，不该被延迟
+  // 用背景图而非 <img>：主题的图片查看器抓 ".md img:not(.emoji):not(.vemoji)"，
+  // 会把命中的 img 包进三层带内联样式的 div（其中一层是 fit-content），把尺寸拉回
+  // 图片原始大小，任何外部 CSS 都要靠 !important 才压得住。背景图它不认，尺寸就完全
+  // 由 figure 说了算。顶部 banner 已用同一张图，此处走浏览器缓存，几乎不产生额外开销。
+  // role + aria-label 保留无障碍语义。
   data.content =
-    `<figure class="post-cover-inline">` +
-    `<img src="${escapeHtml(src)}" alt="${alt}" loading="eager" decoding="async" fetchpriority="high">` +
-    `</figure>` +
+    `<figure class="post-cover-inline" role="img" aria-label="${alt}"` +
+    ` style="background-image:url(&quot;${escapeHtml(src)}&quot;)"></figure>` +
     data.content;
 });
 
@@ -33,23 +36,19 @@ hexo.extend.filter.register('after_render:html', function (html) {
   const css = `<style>
 .post-cover-inline {
   margin: 0 0 2em;
-  border-radius: 12px;
-  overflow: hidden;
-  line-height: 0;
-}
-.post-cover-inline img {
   width: 100%;
-  height: auto;
-  max-height: 420px;
-  object-fit: cover;
-  object-position: center;
+  height: 420px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 @media (max-width: 767px) {
   .post-cover-inline {
+    height: 220px;
     margin-bottom: 1.5em;
     border-radius: 8px;
   }
-  .post-cover-inline img { max-height: 260px; }
 }
 </style>`;
 
