@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "esbuild source/js/_smooth/index.ts --bundle --format=esm --minify --outfile=source/js/smooth.js && hexo clean && hexo generate",
+    "build": "esbuild source/js/_smooth/index.ts --bundle --format=esm --minify --outfile=source/js/smooth.js && hexo clean && hexo generate && node tools/fix-domain-check.js",
     "clean": "hexo clean",
     "server": "hexo server"
   },
