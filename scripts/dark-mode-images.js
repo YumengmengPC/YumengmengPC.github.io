@@ -19,7 +19,9 @@ hexo.extend.filter.register('after_render:html', function(html, data) {
   img[src*="/images/lec13_"],
   img[src*="/images/lec14_"],
   img[src*="/images/lec15_"],
-	  img[src*="/images/lec16_"] {
+	  img[src*="/images/lec16_"],
+  /* CS224n 课件截图 */
+  img[src*="/images/cs224n_l1_"] {
     filter: invert(0.9) hue-rotate(180deg);
   }
 }
