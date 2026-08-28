@@ -50,7 +50,7 @@ $$f = W_2 (W_1 x) = (W_2 W_1) x = W_3 x$$
 
 存在一个 $W_3 = W_2 W_1$ 使得 $f = W_3 x$，又变回了线性分类器。**堆叠任意多层线性变换，等价于一层线性变换**——无论加多少层，表达能力没有任何提升。
 
-$$\text{线性 → 线性 → 线性 = 线性}$$
+**线性 → 线性 → 线性 = 线性**
 
 非线性激活函数的作用是**从一个空间变换到另一个空间**，使原本线性不可分的数据在新空间中变得线性可分。隐藏层中的每个神经元可以理解为最终输出标签的某一部分"特征模板"——比如一个神经元学会检测"猫耳朵"，另一个检测"猫眼睛"，最终组合起来做出分类决策。
 
@@ -78,7 +78,7 @@ $$\tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}$$
 
 ### ReLU
 
-$$\text{ReLU}(x) = \max(0, x)$$
+$$\operatorname{ReLU}(x) = \max(0, x)$$
 
 计算高效，**大多数场景的默认首选**（CNN、Transformer 均适用）；缺点是有"**死亡神经元**"问题——权重一旦归零后永不激活。Krizhevsky 等人 2012 年的实验表明，ReLU 的收敛速度远超 Tanh：
 
@@ -88,7 +88,7 @@ $$\text{ReLU}(x) = \max(0, x)$$
 
 ### Leaky ReLU
 
-$$\text{LeakyReLU}(x) = \max(0.01x, x)$$
+$$\operatorname{LeakyReLU}(x) = \max(0.01x, x)$$
 
 负区间保留微小梯度，缓解死亡神经元问题。
 
@@ -100,7 +100,7 @@ $$f(x) = \begin{cases} x & x \ge 0 \\ \alpha(e^x-1) & x < 0 \end{cases}$$
 
 ### GELU 与 SILU (Swish)
 
-$$\text{GELU}(x) = x \cdot \Phi(x), \quad \text{SILU}(x) = x \cdot \sigma(x)$$
+$$\operatorname{GELU}(x) = x \cdot \Phi(x), \quad \operatorname{SILU}(x) = x \cdot \sigma(x)$$
 
 GELU 是 Transformer 架构的标配激活函数（BERT、GPT 均使用）；SILU/Swish 是 GELU 的近似，在某些视觉任务中性能更优。
 
@@ -290,7 +290,7 @@ dw = [x[0] * ddot, x[1] * ddot, 1.0 * ddot]
 
 对于 $y = f(x)$，$x \in \mathbb{R}^n, y \in \mathbb{R}^m$，$L$ 为标量：
 
-$$\frac{\partial L}{\partial x} = \left(\frac{\partial y}{\partial x}\right)^T \cdot \frac{\partial L}{\partial y}$$
+$$\frac{\partial L}{\partial x} = \left(\frac{\partial y}{\partial x}\right)^{\mathsf{T}} \cdot \frac{\partial L}{\partial y}$$
 
 这里 $\frac{\partial y}{\partial x}$ 是 Jacobian 矩阵（$m \times n$），$\frac{\partial L}{\partial y}$ 是梯度向量（$m$ 维）。但**实际上我们几乎从不显式构造 Jacobian**——一个 $1000 \times 1000$ 的 Jacobian 就有 100 万个元素，而实际网络的维度远大于此。
 
@@ -314,13 +314,13 @@ dh[h <= 0] = 0           # 只传给激活了的神经元，无需构造矩阵
 
 不需要死记公式。**维度分析法**四步就能推出来：
 
-**推导 $\frac{\partial L}{\partial W}$**：目标形状 $[D, M]$（与 $W$ 一致）。手上有的矩阵：$X [N, D]$ 和 $\frac{\partial L}{\partial Y} [N, M]$。唯一能拼出 $[D, M]$ 的组合：$X^T [D \times N] \cdot \frac{\partial L}{\partial Y} [N \times M] = [D \times M]$。
+**推导 $\frac{\partial L}{\partial W}$**：目标形状 $[D, M]$（与 $W$ 一致）。手上有的矩阵：$X [N, D]$ 和 $\frac{\partial L}{\partial Y} [N, M]$。唯一能拼出 $[D, M]$ 的组合：$X^{\mathsf{T}} [D \times N] \cdot \frac{\partial L}{\partial Y} [N \times M] = [D \times M]$。
 
-$$\frac{\partial L}{\partial W} = X^T \cdot \frac{\partial L}{\partial Y}$$
+$$\frac{\partial L}{\partial W} = X^{\mathsf{T}} \cdot \frac{\partial L}{\partial Y}$$
 
-**推导 $\frac{\partial L}{\partial X}$**：目标形状 $[N, D]$。$\frac{\partial L}{\partial Y} [N \times M] \cdot W^T [M \times D] = [N \times D]$。
+**推导 $\frac{\partial L}{\partial X}$**：目标形状 $[N, D]$。$\frac{\partial L}{\partial Y} [N \times M] \cdot W^{\mathsf{T}} [M \times D] = [N \times D]$。
 
-$$\frac{\partial L}{\partial X} = \frac{\partial L}{\partial Y} \cdot W^T$$
+$$\frac{\partial L}{\partial X} = \frac{\partial L}{\partial Y} \cdot W^{\mathsf{T}}$$
 
 用代码写出来就两行：
 
@@ -329,7 +329,7 @@ dW = X.T @ dY    # [D, N] @ [N, M] = [D, M]  ✓
 dX = dY @ W.T    # [N, M] @ [M, D] = [N, D]  ✓
 ```
 
-观察这两个公式：它们正是乘法门"交换变量"特性在矩阵层面的体现——梯度传到 $W$ 时乘以 $X^T$，传到 $X$ 时乘以 $W^T$。整个过程**没有构造任何完整 Jacobian**（那个尺寸会是 $(NM) \times (ND)$，根本放不下内存）——这正是深度学习能在千万级参数上高效训练的根本原因。
+观察这两个公式：它们正是乘法门"交换变量"特性在矩阵层面的体现——梯度传到 $W$ 时乘以 $X^{\mathsf{T}}$，传到 $X$ 时乘以 $W^{\mathsf{T}}$。整个过程**没有构造任何完整 Jacobian**（那个尺寸会是 $(NM) \times (ND)$，根本放不下内存）——这正是深度学习能在千万级参数上高效训练的根本原因。
 
 值得一提的是，这个维度分析技巧适用面非常广：全连接层、卷积层、注意力层、Einsum……任何张量运算的反向传播，只要记住"梯度形状 = 变量形状"，逆向拼维度就能推导出正确答案。
 

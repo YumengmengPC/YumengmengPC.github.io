@@ -196,7 +196,7 @@ Grad-CAM 解除了 CAM 的架构限制：对任意卷积层的输出，把梯度
 
 $$\alpha_k^c = \frac{1}{Z} \sum_i \sum_j \frac{\partial y^c}{\partial A_{ij}^k}$$
 
-$$L_{\text{Grad-CAM}}^c = \text{ReLU}\left(\sum_k \alpha_k^c A^k\right)$$
+$$L_{\mathrm{Grad-CAM}}^c = \operatorname{ReLU}\left(\sum_k \alpha_k^c A^k\right)$$
 
 直观理解：$\alpha_k^c$ 衡量的是"第 k 个特征图对类别 c 的贡献有多大"——梯度越大说明越重要。ReLU 只保留对分类有正向贡献的区域。最终输出的热力图可以叠加在原图上，清晰展示模型"看到"了什么。
 

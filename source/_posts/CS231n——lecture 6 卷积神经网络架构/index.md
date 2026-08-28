@@ -32,7 +32,7 @@ Lecture 6 围绕两个核心问题展开：**如何搭建 CNN？** 和 **如何�
 
 输出空间尺寸的计算公式：
 
-$$W_{out} = \frac{W_{in} - K + 2P}{S} + 1$$
+$$W_{\mathrm{out}} = \frac{W_{\mathrm{in}} - K + 2P}{S} + 1$$
 
 每一层的滤波器跨越前一层所有激活图的深度，所以多通道卷积自然带来**层次化特征提取**——浅层学边缘和纹理，深层学物体部件和整体结构。
 
@@ -126,7 +126,7 @@ $$3 \times 3 \rightarrow 5 \times 5 \rightarrow 7 \times 7$$
 
 ResNet 的解决方案是引入**残差连接 skip connection**：
 
-$$\text{Output} = x + \mathcal{F}(x)$$
+$$\mathrm{Output} = x + \mathcal{F}(x)$$
 
 $\mathcal{F}(x)$ 是残差块学到的函数。当最优解接近恒等映射时，只需要让 $\mathcal{F}(x) \approx 0$，这比直接学 $H(x) = x$ 容易得多。残差连接让极深网络（152 层）的训练成为可能。
 
@@ -145,11 +145,11 @@ ResNet 的典型设计：
 
 **Kaiming（He）初始化** 专为 ReLU 网络设计，保持各层激活值方差不衰减：
 
-$$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan\_in}}\right)$$
+$$W \sim \mathcal{N}\left(0, \frac{2}{\mathrm{fan\_in}}\right)$$
 
-其中 $\text{fan\_in} = K_h \times K_w \times C_{in}$（卷积层）或 $D_{in}$（全连接层）。那个因子 2 是因为 ReLU 将负半轴的方差清零。
+其中 $\mathrm{fan\_in} = K_h \times K_w \times C_{\mathrm{in}}$（卷积层）或 $D_{in}$（全连接层）。那个因子 2 是因为 ReLU 将负半轴的方差清零。
 
-**Xavier（Glorot）初始化** 推导自 tanh/sigmoid，公式为 $\text{Var}(W) = \frac{2}{\text{fan\_in} + \text{fan\_out}}$。对 ReLU 网络，Kaiming 效果更好。
+**Xavier（Glorot）初始化** 推导自 tanh/sigmoid，公式为 $\operatorname{Var}(W) = \frac{2}{\mathrm{fan\_in} + \mathrm{fan\_out}}$。对 ReLU 网络，Kaiming 效果更好。
 
 ![训练良好时的 CNN 第一层滤波器](https://cs231n.github.io/assets/nn3/cnnweights.jpg)
 
@@ -159,7 +159,7 @@ $$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan\_in}}\right)$$
 
 图像数据最常见的预处理：**逐通道减均值除标准差**。
 
-$$x_{norm} = \frac{x - \mu_{channel}}{\sigma_{channel}}$$
+$$x_{\mathrm{norm}} = \frac{x - \mu_{\mathrm{channel}}}{\sigma_{\mathrm{channel}}}$$
 
 对整个训练集的每个 RGB 通道分别算 $\mu$ 和 $\sigma$，然后所有图片用相同的统计量归一化。如果用 ImageNet 预训练模型，直接使用 ImageNet 的统计量即可（$\mu = [0.485, 0.456, 0.406]$，$\sigma = [0.229, 0.224, 0.225]$）。
 
