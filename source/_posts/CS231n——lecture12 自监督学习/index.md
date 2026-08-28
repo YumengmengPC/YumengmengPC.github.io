@@ -170,7 +170,7 @@ MAE 的编码器是 ViT，但它**只处理没被遮的那 25% 的 patch**。这
 只用被遮区域的 MSE 损失做优化：
 
 $$
-\mathcal{L} = \frac{1}{|M|} \sum_{i \in M} \| \hat{x}_i - x_i \|^2
+\mathcal{L} = \frac{1}{|M|} \sum_{i \in M} \lVert \hat{x}_i - x_i \rVert^2
 $$
 
 其中 $M$ 是被遮 patch 的集合。

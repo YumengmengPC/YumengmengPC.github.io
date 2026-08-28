@@ -67,9 +67,9 @@ SimCLR 是最经典实现——核心就是拉近正样本对、推开负样本�
 
 这是这节课最重要的概念对比。给定数据 $X$ 和标签 $Y$：
 
-* **判别模型（Discriminative）**：学 $p(Y|X)$——给定图片，标签的分布
+* **判别模型（Discriminative）**：学 $p(Y \mid X)$——给定图片，标签的分布
 * **生成模型（Generative）**：学 $p(X)$——数据本身的分布
-* **条件生成模型（Conditional Generative）**：学 $p(X|Y)$——给定标签，图片的分布
+* **条件生成模型（Conditional Generative）**：学 $p(X \mid Y)$——给定标签，图片的分布
 
 ![判别模型与生成模型](/images/lec13_discriminative.webp)
 
@@ -101,7 +101,7 @@ $p(X)$ 在所有可能的图像上学习一个分布。因为概率质量有限�
 
 ### 条件生成模型
 
-$p(X|Y)$ 对每个可能的标签 Y **单独**引入图像空间上的概率竞争：
+$p(X \mid Y)$ 对每个可能的标签 Y **单独**引入图像空间上的概率竞争：
 
 * 给定"猫"，在所有猫图中分配概率质量
 * 给定"狗"，在所有狗图中分配概率质量
@@ -113,13 +113,13 @@ $p(X|Y)$ 对每个可能的标签 Y **单独**引入图像空间上的概率竞�
 
 三种模型通过贝叶斯公式连在一起：
 
-$$p(Y|X) = \frac{p(X|Y) \cdot p(Y)}{p(X)}$$
+$$p(Y \mid X) = \frac{p(X \mid Y) \cdot p(Y)}{p(X)}$$
 
 实际用途总结：
 
-* 判别模型 $p(Y|X)$：分配标签、特征学习
+* 判别模型 $p(Y \mid X)$：分配标签、特征学习
 * 生成模型 $p(X)$：异常检测、无标签特征学习（但无法控制采样内容）
-* 条件生成模型 $p(X|Y)$：分配标签 + 拒绝异常值 + **从标签生成新数据**（最重要）
+* 条件生成模型 $p(X \mid Y)$：分配标签 + 拒绝异常值 + **从标签生成新数据**（最重要）
 
 ---
 
@@ -169,7 +169,7 @@ $$p(Y|X) = \frac{p(X|Y) \cdot p(Y)}{p(X)}$$
 
 $$p(x) = f(x, W)$$
 
-给定训练样本 $x_1, x_2, ..., x_n$，要找一组权重 $W^*$ 让模型产生的数据集"最有可能"：
+给定训练样本 $x_1, x_2, \ldots, x_n$，要找一组权重 $W^*$ 让模型产生的数据集"最有可能"：
 
 $$W^* = \arg\max_W \sum_i \log p(x_i) = \arg\max_W \sum_i \log f(x_i, W)$$
 
@@ -181,9 +181,9 @@ $$W^* = \arg\max_W \sum_i \log p(x_i) = \arg\max_W \sum_i \log f(x_i, W)$$
 
 $p(x)$ 是高维联合分布，直接用神经网络建模极难。用概率链式法则拆开：
 
-$$p(x) = \prod_{t=1}^{T} p(x_t | x_{<t})$$
+$$p(x) = \prod_{t=1}^{T} p(x_t \mid x_{<t})$$
 
-把数据看作序列 $x_1, x_2, ..., x_T$，每个 $p(x_t | x_{<t})$ 比 $p(x)$ 简单得多——只需预测"下一个是什么"。
+把数据看作序列 $x_1, x_2, \ldots, x_T$，每个 $p(x_t \mid x_{<t})$ 比 $p(x)$ 简单得多——只需预测"下一个是什么"。
 
 ![自回归模型](/images/lec13_autoregressive.webp)
 
@@ -245,36 +245,36 @@ PixelCNN / PixelRNN 用掩码卷积确保每像素只看"之前"的像素（光�
 VAE 定义的概率式生成（假设训练数据 $x_i$ 从不可观测的潜在向量 $z$ 中生成）：
 
 1. 从先验采样：$z \sim p(z)$（通常选标准正态 $\mathcal{N}(0, I)$）
-2. 解码生成：$x \sim p_\theta(x|z)$
+2. 解码生成：$x \sim p_\theta(x \mid z)$
 
-解码器 $p_\theta(x|z)$ 是神经网络，输入 Z 输出 X 上的条件分布。训好后从高斯随便抽 Z，解码器就能出图。
+解码器 $p_\theta(x \mid z)$ 是神经网络，输入 Z 输出 X 上的条件分布。训好后从高斯随便抽 Z，解码器就能出图。
 
 ### 训练难点：积分不可计算
 
 训练 VAE 想最大化数据似然 $p_\theta(x)$。按边缘化思路：
 
-$$p_\theta(x) = \int p_\theta(x, z) \, dz = \int p_\theta(x|z) \, p(z) \, dz$$
+$$p_\theta(x) = \int p_\theta(x, z) \, dz = \int p_\theta(x \mid z) \, p(z) \, dz$$
 
 这个积分遍历所有可能的 Z，表达能力强的神经解码器下完全不可计算——维度太高。
 
 同样，后验也求不出。按贝叶斯公式：
 
-$$p_\theta(z|x) = \frac{p_\theta(x|z) \, p(z)}{p_\theta(x)}$$
+$$p_\theta(z \mid x) = \frac{p_\theta(x \mid z) \, p(z)}{p_\theta(x)}$$
 
-分母 $p_\theta(x)$ 算不出 → 后验 $p_\theta(z|x)$ 也求不出。
+分母 $p_\theta(x)$ 算不出 → 后验 $p_\theta(z \mid x)$ 也求不出。
 
 ### 解法：学一个近似后验
 
-真正的后验求不出，用另一个神经网络近似。引入**编码器网络** $q_\phi(z|x)$：
+真正的后验求不出，用另一个神经网络近似。引入**编码器网络** $q_\phi(z \mid x)$：
 
-$$q_\phi(z|x) \approx p_\theta(z|x)$$
+$$q_\phi(z \mid x) \approx p_\theta(z \mid x)$$
 
 两个网络的角色：
 
-* **编码器** $q_\phi(z|x)$（推断网络）：输入 X，输出 Z 上高斯分布的参数——均值 $\mu_\phi(x)$ 和对角协方差 $\sigma^2_\phi(x)$
-* **解码器** $p_\theta(x|z)$（生成网络）：输入 Z，输出 X 上的条件分布参数
+* **编码器** $q_\phi(z \mid x)$（推断网络）：输入 X，输出 Z 上高斯分布的参数——均值 $\mu_\phi(x)$ 和对角协方差 $\sigma^2_\phi(x)$
+* **解码器** $p_\theta(x \mid z)$（生成网络）：输入 Z，输出 X 上的条件分布参数
 
-VAE 就是同时训练编码器和解码器：编码器推断"给定这张图，Z 大概是什么分布"，解码器"给定 Z，生成一张图"。让隐变量分布 $q_\phi(z|x)$ 接近标准正态先验 $p(z) = \mathcal{N}(0, I)$。
+VAE 就是同时训练编码器和解码器：编码器推断"给定这张图，Z 大概是什么分布"，解码器"给定 Z，生成一张图"。让隐变量分布 $q_\phi(z \mid x)$ 接近标准正态先验 $p(z) = \mathcal{N}(0, I)$。
 
 ### 为什么是对角高斯？
 
@@ -294,33 +294,33 @@ $$\log p_\theta(x) = \log \int p_\theta(x, z) \, dz$$
 
 经过变分推导，可以写出：
 
-$$\log p_\theta(x) = \underbrace{\mathbb{E}_{z \sim q_\phi(z|x)}[\log p_\theta(x|z)]}_{\text{重建项}} - \underbrace{D_{KL}(q_\phi(z|x) \| p(z))}_{\text{KL 正则项}} + \underbrace{D_{KL}(q_\phi(z|x) \| p_\theta(z|x))}_{\text{无法计算}}$$
+$$\log p_\theta(x) = \underbrace{\mathbb{E}_{z \sim q_\phi(z \mid x)}[\log p_\theta(x \mid z)]}_{\text{重建项}} - \underbrace{D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p(z))}_{\text{KL 正则项}} + \underbrace{D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p_\theta(z \mid x))}_{\text{无法计算}}$$
 
 ![ELBO 推导](/images/lec13_elbo.webp)
 
-最后一项 $D_{KL}(q_\phi(z|x) \| p_\theta(z|x))$ 包含真实后验 $p_\theta(z|x)$，不可计算。
+最后一项 $D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p_\theta(z \mid x))$ 包含真实后验 $p_\theta(z \mid x)$，不可计算。
 
 **关键操作：直接扔掉。** KL 散度永远非负，扔掉后得到的是下界：
 
-$$\log p_\theta(x) \geq \mathbb{E}_{z \sim q_\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) \| p(z)) = \text{ELBO}$$
+$$\log p_\theta(x) \geq \mathbb{E}_{z \sim q_\phi(z \mid x)}[\log p_\theta(x \mid z)] - D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p(z)) = \text{ELBO}$$
 
 ELBO = Evidence Lower BOund（证据下界）。最大化 ELBO 就是在提高真实的 $\log p_\theta(x)$。
 
 两项的含义和博弈：
 
-* **重建项** $\mathbb{E}_{z \sim q_\phi(z|x)}[\log p_\theta(x|z)]$：从编码器采样 Z → 解码器重建 X 有多准。期望在 $q_\phi(z|x)$ 下取。鼓励 Z 携带足够信息来还原 X
-* **KL 正则项** $D_{KL}(q_\phi(z|x) \| p(z))$：编码器输出分布离标准高斯先验有多远。**拉近到先验**——这是让采样成为可能的关键
+* **重建项** $\mathbb{E}_{z \sim q_\phi(z \mid x)}[\log p_\theta(x \mid z)]$：从编码器采样 Z → 解码器重建 X 有多准。期望在 $q_\phi(z \mid x)$ 下取。鼓励 Z 携带足够信息来还原 X
+* **KL 正则项** $D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p(z))$：编码器输出分布离标准高斯先验有多远。**拉近到先验**——这是让采样成为可能的关键
 
-两项在博弈，具体到编码器输出的 $\mu_{z|x}$ 和 $\Sigma_{z|x}$：
+两项在博弈，具体到编码器输出的 $\mu_{z \mid x}$ 和 $\Sigma_{z \mid x}$：
 
-* **重建项**希望 $\Sigma_{z|x} \to 0$、每个样本的 $\mu_{z|x}$ 各不相同——这样每个 X 对应唯一的 Z，解码器可以确定性重建，没有信息损失
-* **KL 正则项**希望 $\Sigma_{z|x} \to I$、$\mu_{z|x} \to 0$——这样编码器输出始终是单位高斯，先验匹配完美，采样自然成立
+* **重建项**希望 $\Sigma_{z \mid x} \to 0$、每个样本的 $\mu_{z \mid x}$ 各不相同——这样每个 X 对应唯一的 Z，解码器可以确定性重建，没有信息损失
+* **KL 正则项**希望 $\Sigma_{z \mid x} \to I$、$\mu_{z \mid x} \to 0$——这样编码器输出始终是单位高斯，先验匹配完美，采样自然成立
 
 两个极端之间训练中自动达成平衡：方差不为零（采样需要随机性），但刚好够小；均值不完全拉到零（每个样本保留自己的特异性），但整体围绕先验原点分布。这种博弈也让隐空间连续平滑——相近的 Z 解码出相近的图像。
 
 ### 重参数化技巧
 
-采样操作 $z \sim q_\phi(z|x)$ 不可导——随机采样打断梯度流。解决方案：
+采样操作 $z \sim q_\phi(z \mid x)$ 不可导——随机采样打断梯度流。解决方案：
 
 $$z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)$$
 
@@ -332,9 +332,9 @@ $$z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon, \quad \varepsilon \sim \ma
 
 联合训练编码器 $q_\phi$ 和解码器 $p_\theta$，共同最大化 ELBO：
 
-$$\max_{\theta, \phi} \mathbb{E}_{z \sim q_\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) \| p(z))$$
+$$\max_{\theta, \phi} \mathbb{E}_{z \sim q_\phi(z \mid x)}[\log p_\theta(x \mid z)] - D_{\mathrm{KL}}(q_\phi(z \mid x) \mathrel\Vert p(z))$$
 
-重建项中的期望通过从 $q_\phi(z|x)$ 采样 $z$ 来逼近——具体做法是重参数化采样，每次前向只抽一个 $z$，梯度通过 $\mu$ 和 $\sigma$ 回传。
+重建项中的期望通过从 $q_\phi(z \mid x)$ 采样 $z$ 来逼近——具体做法是重参数化采样，每次前向只抽一个 $z$，梯度通过 $\mu$ 和 $\sigma$ 回传。
 
 训完后三个操作模式：
 

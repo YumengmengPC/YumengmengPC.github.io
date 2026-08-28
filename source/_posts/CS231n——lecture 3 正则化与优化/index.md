@@ -170,7 +170,7 @@ for _ in range(1000):
 
 **一维情况**：导数 $\frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$，表示函数在该点的瞬时变化率。
 
-**多维情况**：梯度 $\nabla_W L = \left(\frac{\partial L}{\partial w_1}, \frac{\partial L}{\partial w_2}, ..., \frac{\partial L}{\partial w_n}\right)$，是一个 n 维向量。
+**多维情况**：梯度 $\nabla_W L = \left(\frac{\partial L}{\partial w_1}, \frac{\partial L}{\partial w_2}, \ldots, \frac{\partial L}{\partial w_n}\right)$，是一个 n 维向量。
 
 **更新公式：**
 

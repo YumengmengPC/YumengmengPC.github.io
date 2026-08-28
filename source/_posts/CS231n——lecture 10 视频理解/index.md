@@ -213,7 +213,7 @@ RNN 的根本瓶颈在于顺序计算导致的无法并行化。Lecture 8 介绍
 
 自注意力的核心公式为：
 
-$$y = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V$$
+$$y = \operatorname{softmax}\left(\frac{QK^{\mathsf{T}}}{\sqrt{d}}\right)V$$
 
 每个输出位置是所有输入位置的加权组合，任意两个位置之间可以直接交互，不受距离限制。
 
@@ -229,7 +229,7 @@ $$y = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V$$
 4. 注意力权重与 V 相乘 → 经 `1×1×1` 卷积映射回原始通道数 C
 5. 残差连接：与原始输入相加
 
-$$Output = Conv(Softmax(Q \otimes K^T) \otimes V) + Input$$
+$$Y = \operatorname{Conv}(\operatorname{softmax}(Q \otimes K^{\mathsf{T}}) \otimes V) + X$$
 
 常规 3D 卷积的感受野受核大小限制（局部），Nonlocal Block 的感受野是全局的——第 1 帧的任意像素可以直接关注到第 T 帧的任意像素。且与 RNN 不同，Nonlocal Block 不存在顺序依赖，完全可并行计算。
 

@@ -255,7 +255,7 @@ FSDP/HSDP 解决的是权重和优化器的显存问题。但激活值才是更�
 
 ![MFU](/images/lec11_mfu.webp)
 
-$$\text{MFU} = \frac{\text{FLOPs}_{\text{theoretical}} \div \text{peak\_FLOPs\_per\_sec}}{\text{actual\_iteration\_time}}$$
+$$\text{MFU} = \frac{\mathrm{FLOPs}_{\mathrm{theoretical}} \div \mathrm{peak\_FLOPs\_per\_sec}}{\mathrm{actual\_iteration\_time}}$$
 
 FLOPs_theoretical 是前向+反向传播中所有矩阵乘法的理论浮点运算量（忽略归一化、激活函数等非矩阵乘法操作）。MFU 衡量的是"GPU 理论峰值算力中有多大比例花在了有用的模型计算上"。
 
@@ -306,7 +306,7 @@ Transformer 各层的并行化难度不同：
 
 4 路 PP + 4 个微批次：MFU 从 25% 提升到 **57.1%**。微批次越多，bubble 占比越小。但代价是：更多微批次意味着更多激活值同时存在，需要更激进的激活检查点策略。
 
-经验法则：微批次数量应远大于 PP 路数（$\text{num\_microbatches} \gg \text{PP\_size}$）。
+经验法则：微批次数量应远大于 PP 路数（$\mathrm{num\_microbatches} \gg \mathrm{PP\_size}$）。
 
 ---
 
@@ -337,7 +337,7 @@ $$Z = Y_1 U_1 + Y_2 U_2 + Y_3 U_3 + Y_4 U_4 \quad (\text{各 GPU 计算后直接
 
 对于最大的模型，四种并行策略同时使用：
 
-$$N_{\text{total}} = n_{\text{DP}} \times n_{\text{PP}} \times n_{\text{CP}} \times n_{\text{TP}}$$
+$$N_{\mathrm{total}} = n_{\mathrm{DP}} \times n_{\mathrm{PP}} \times n_{\mathrm{CP}} \times n_{\mathrm{TP}}$$
 
 每个 GPU 有一个 4D 坐标，同时参与多个并行组。
 

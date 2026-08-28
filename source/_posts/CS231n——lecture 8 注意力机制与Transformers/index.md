@@ -101,14 +101,14 @@ $$k_i = x_i W_K, \quad v_i = x_i W_V$$
 
 1. 输入：一组查询向量 Q 和一组数据向量 X
 2. 通过 $W_K, W_V$ 把 X 投影成 K、V
-3. 计算 Q 和 K 的相似度矩阵：$S = QK^T$
+3. 计算 Q 和 K 的相似度矩阵：$S = QK^{\mathsf{T}}$
 4. 除以 $\sqrt{d}$ 做缩放（防止点积值过大把 softmax 推到饱和区）
-5. softmax 归一化：$A = \text{softmax}(S / \sqrt{d})$
+5. softmax 归一化：$A = \operatorname{softmax}(S / \sqrt{d})$
 6. 输出：$O = A \cdot V$
 
 写成一行：
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right) V$$
+$$\operatorname{Attention}(Q, K, V) = \operatorname{softmax}\left(\frac{QK^{\mathsf{T}}}{\sqrt{d}}\right) V$$
 
 两个可学习的参数：$W_K$ 和 $W_V$。输入两组向量序列，输出一组向量序列——这就是一个完整的神经网络层。
 
@@ -126,7 +126,7 @@ $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
 ![自注意力：输入向量投影为 Q、K、V 三组](/images/attention_layer_QKV.webp)
 
-后续计算完全一样：$QK^T$ → scale → softmax → 乘以 V。
+后续计算完全一样：$QK^{\mathsf{T}}$ → scale → softmax → 乘以 V。
 
 ![自注意力的输出 = 对各位置 value 的加权和](/images/self_attention_overview.webp)
 
@@ -146,7 +146,7 @@ $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
 在语言生成（自回归解码）场景中，当前位置不应该偷看未来的 token。怎么办？
 
-在计算 $QK^T$ 后、做 softmax 之前，把未来位置的分值设为 $-\infty$。这样 softmax 之后，那些位置的权重就是 0——模型只能看到当前及之前的 token，保持因果性。
+在计算 $QK^{\mathsf{T}}$ 后、做 softmax 之前，把未来位置的分值设为 $-\infty$。这样 softmax 之后，那些位置的权重就是 0——模型只能看到当前及之前的 token，保持因果性。
 
 ---
 
@@ -162,7 +162,7 @@ $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
 ![Multi-Head Attention](/images/arxiv_attention_multihead.webp)
 
-$$\text{MultiHead}(X) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \cdot W_O$$
+$$\operatorname{MultiHead}(X) = \operatorname{Concat}(\mathrm{head}_1, \dots, \mathrm{head}_h) \cdot W_O$$
 
 ![多头注意力：各头输出拼接后线性投影](/images/multihead_concat.webp)
 

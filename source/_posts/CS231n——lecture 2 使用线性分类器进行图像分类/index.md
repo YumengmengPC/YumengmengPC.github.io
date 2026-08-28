@@ -236,13 +236,13 @@ $$L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta)$$
 1. **指数化**：取 $e^{s_k}$，确保所有值 > 0
 2. **归一化**：除以所有指数之和 $\sum_j e^{s_j}$，使所有概率之和为 1
 
-$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}}$$
+$$P(Y = k \mid X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}}$$
 
 例如模型输出 [cat: 0.13, car: 0.87, frog: 0.00]，意味着模型认为这张图是猫的概率为 13%，是车的概率为 87%，是青蛙的概率为 0%。
 
 损失函数直接取**负对数似然 Negative Log Likelihood**：
 
-$$L_i = -\log P(Y=y_i|X=x_i)$$
+$$L_i = -\log P(Y = y_i \mid X = x_i)$$
 
 本质是在做**最大似然估计 Maximum Likelihood Estimation**——我们希望正确类别的概率越大越好。
 
@@ -250,9 +250,9 @@ $$L_i = -\log P(Y=y_i|X=x_i)$$
 
 $$H(P, Q) = -\sum_x P(x) \log Q(x)$$
 
-$$D_{KL}(P \parallel Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}$$
+$$D_{\mathrm{KL}}(P \parallel Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}$$
 
-$$H(P, Q) = H(P) + D_{KL}(P \parallel Q)$$
+$$H(P, Q) = H(P) + D_{\mathrm{KL}}(P \parallel Q)$$
 
 * P 是真实概率分布，Q 是模型预测的概率分布
 * H(P) 是真实分布的熵（常数，真实标签固定不变）

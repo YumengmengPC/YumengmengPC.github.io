@@ -152,8 +152,8 @@ CNN 的核心洞察：**图像具有平移不变性**。一只猫在图像偏左
 
 卷积层改变了全连接层的连接方式：
 
-- **全连接层**：每个输出神经元连接所有输入像素，权重数量 $C_{in} \times H \times W \times C_{out}$
-- **卷积层**：每个滤波器只看输入的**一小部分**（局部感受野），同一个滤波器在整个图像上**滑动并共享权重**，权重数量仅 $C_{out} \times C_{in} \times K_h \times K_w$
+- **全连接层**：每个输出神经元连接所有输入像素，权重数量 $C_{\mathrm{in}} \times H \times W \times C_{\mathrm{out}}$
+- **卷积层**：每个滤波器只看输入的**一小部分**（局部感受野），同一个滤波器在整个图像上**滑动并共享权重**，权重数量仅 $C_{\mathrm{out}} \times C_{\mathrm{in}} \times K_h \times K_w$
 
 ### 卷积运算的直观过程
 
@@ -165,7 +165,7 @@ CNN 的核心洞察：**图像具有平移不变性**。一只猫在图像偏左
 
 - 第二个 $5 \times 5 \times 3$ 滤波器做同样的事，生成另一张 $28 \times 28 \times 1$ 的特征图
 - 以此类推，添加任意数量的滤波器
-- 将所有特征图沿深度方向堆叠，得到一个三维张量 $28 \times 28 \times C_{out}$
+- 将所有特征图沿深度方向堆叠，得到一个三维张量 $28 \times 28 \times C_{\mathrm{out}}$
 
 ![卷积操作：滤波器在输入上滑动并计算点积](https://cs231n.github.io/assets/cnn/depthcol.jpeg)
 
@@ -177,7 +177,7 @@ CNN 的核心洞察：**图像具有平移不变性**。一只猫在图像偏左
 
 > **输入**：一张图像 + 一组滤波器（随机初始化）
 >
-> **超参数**：滤波器数量 $C_{out}$（输出通道数）、滤波器尺寸 $K_h \times K_w$
+> **超参数**：滤波器数量 $C_{\mathrm{out}}$（输出通道数）、滤波器尺寸 $K_h \times K_w$
 
 与全连接层相同，卷积层输出后必须接**非线性激活函数**（如 ReLU），否则多个卷积层的叠加仍等价于一层线性变换。
 
@@ -187,9 +187,9 @@ CNN 的核心洞察：**图像具有平移不变性**。一只猫在图像偏左
 
 | 张量 | 维度 | 含义 |
 |------|------|------|
-| 输入 | $N \times C_{in} \times H \times W$ | 一批图像（N 张） |
-| 滤波器 | $C_{out} \times C_{in} \times K_h \times K_w$ | 一组滤波器 |
-| 输出 | $N \times C_{out} \times H' \times W'$ | 一批输出特征图 |
+| 输入 | $N \times C_{\mathrm{in}} \times H \times W$ | 一批图像（N 张） |
+| 滤波器 | $C_{\mathrm{out}} \times C_{\mathrm{in}} \times K_h \times K_w$ | 一组滤波器 |
+| 输出 | $N \times C_{\mathrm{out}} \times H' \times W'$ | 一批输出特征图 |
 
 ### 空间维度计算
 
@@ -261,7 +261,7 @@ $$H' = \left\lfloor \frac{H - K + 2P}{S} \right\rfloor + 1$$
 
 **分组卷积 Grouped Convolution**：将输入通道分为 $G$ 组，每组独立进行卷积，最后拼接输出。它将参数量和计算量同时降为 $1/G$。分组卷积的思想最早在 AlexNet 中被用于多 GPU 训练，后来成为 MobileNet（深度可分离卷积）、ResNeXt 等高效/高性能架构的核心设计。
 
-**深度可分离卷积 Depthwise Separable Convolution**：分组卷积的极端形式——$G = C_{in} = C_{out}$，即每个通道分配一个独立的 $K \times K \times 1$ 滤波器。计算量约为标准卷积的 $1/K^2 + 1/C_{out}$ 倍，是 MobileNet/Xception 等移动端网络的基石。
+**深度可分离卷积 Depthwise Separable Convolution**：分组卷积的极端形式——$G = C_{\mathrm{in}} = C_{\mathrm{out}}$，即每个通道分配一个独立的 $K \times K \times 1$ 滤波器。计算量约为标准卷积的 $1/K^2 + 1/C_{\mathrm{out}}$ 倍，是 MobileNet/Xception 等移动端网络的基石。
 
 
 ### 卷积层参数计算
@@ -367,7 +367,7 @@ $$32 \times 32 \times 3 \xrightarrow{\text{CONV+ReLU}} 28 \times 28 \times 6 \xr
 1. **局部性 Locality**：像素之间的关系随空间距离增大而衰减——近处相关的概率远大于远处
 2. **平移不变性 Translation Invariance**：一个特征无论在图像的哪个位置出现，都应当被同一滤波器检测到——参数共享保证了这一点
 
-这两个假设不是从数据中学来的，而是被**硬编码**进网络结构中的设计选择。它们大幅减少了自由度——一个全连接层需要学习 $C_{in}HW \times C_{out}HW$ 个连接模式，而卷积层只需学习 $C_{in}K_hK_w \times C_{out}$ 个，同时天然过滤掉大量无意义的假关联。
+这两个假设不是从数据中学来的，而是被**硬编码**进网络结构中的设计选择。它们大幅减少了自由度——一个全连接层需要学习 $C_{\mathrm{in}}HW \times C_{\mathrm{out}}HW$ 个连接模式，而卷积层只需学习 $C_{\mathrm{in}}K_hK_w \times C_{\mathrm{out}}$ 个，同时天然过滤掉大量无意义的假关联。
 
 ---
 
@@ -486,9 +486,9 @@ class SimpleCNN:
 | 概念 | 说明 |
 |------|------|
 | **卷积层** | 局部连接 + 参数共享，保留空间结构 |
-| **滤波器** | $K_h \times K_w \times C_{in}$ 的小张量，每个滤波器学习一种模式 |
+| **滤波器** | $K_h \times K_w \times C_{\mathrm{in}}$ 的小张量，每个滤波器学习一种模式 |
 | **输出维度** | $\lfloor (W - K + 2P) / S \rfloor + 1$ |
-| **参数量** | $C_{out} \times (C_{in} \times K_h \times K_w + 1)$，与输入空间尺寸无关 |
+| **参数量** | $C_{\mathrm{out}} \times (C_{\mathrm{in}} \times K_h \times K_w + 1)$，与输入空间尺寸无关 |
 | **步幅** | 控制滑动步长，影响输出尺寸和计算量 |
 | **零填充** | 控制边界效果，$P = (K-1)/2$ 可保持尺寸不变 |
 | **感受野** | 堆叠卷积层后逐层扩大，深层学习全局结构 |

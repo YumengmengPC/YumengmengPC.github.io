@@ -148,9 +148,9 @@ Flamingo 有两个需要训练的部分（其余全部冻结）：
 
 **Gated XATTN-DENSE 层**。在 LLM 每个冻结的 Transformer block 之间插入两个小模块——交叉注意力 (cross-attention，用文本 token 去查视觉 token) 和一个 FFW 层。每个模块前面有一个**可学习的门控参数** $\alpha$，初始化为 0。前向过程是：
 
-$$y = y + \tanh(\alpha_{xattn}) \cdot \text{CrossAttn}(q=y, kv=\text{visual\_tokens})$$
+$$y = y + \tanh(\alpha_{\mathrm{xattn}}) \cdot \operatorname{CrossAttn}(q=y, kv=\mathrm{visual\_tokens})$$
 
-$$y = y + \tanh(\alpha_{dense}) \cdot \text{FFW}(y)$$
+$$y = y + \tanh(\alpha_{\mathrm{dense}}) \cdot \operatorname{FFW}(y)$$
 
 $\tanh(0) = 0$，所以训练刚开始时门是关闭的——视觉信息完全没有流入，模型行为等同于原始的冻结 LLM。训练过程中 $\alpha$ 逐渐增大，门慢慢打开，模型开始利用视觉信息。这个设计很聪明：它保护了 LLM 原有的语言能力，让视觉信息成为"增强"而不是"干扰"。
 
