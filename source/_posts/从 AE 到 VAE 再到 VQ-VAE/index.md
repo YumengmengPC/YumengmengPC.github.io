@@ -183,6 +183,12 @@ $$
 
 无监督生成只学习下一个 token 是什么，而条件生成要学习给定文本后下一个 token 是什么。
 
+## 代码实现
+
+上文 VQ-VAE 的完整实现（VQ-VAE 自编码器 + 条件 Gated PixelCNN 先验，MNIST 数据集，两阶段训练与条件生成）已开源至 GitHub：[vq-vae-mnist](https://github.com/YumengmengPC/vq-vae-mnist)。
+
+除了论文的标准流程之外，复现过程中还实测出三处必要的工程修正：**数据驱动的码本初始化**（避免初始化量级与编码器输出相差过大导致大部分码字死亡）、**EMA 码本更新**与**死码重置**，相关细节见仓库 README。生成阶段支持输入数字 0-9 条件生成对应类别的手写数字，采样温度与 top-k 的选取也有对应的网格搜索脚本。
+
 [cs231nlecture13]: https://yumengmeng.cn/2026/06/15/CS231n%E2%80%94%E2%80%94lecture13%20%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89/index/
 
 
