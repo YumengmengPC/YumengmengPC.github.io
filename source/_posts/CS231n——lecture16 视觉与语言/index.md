@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 16 视觉与语言
 top: false
+hidden: false
 cover: images/cover_lecture16.webp
 toc: true
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 3 正则化与优化
 top: false
+hidden: false
 cover: images/cover_lecture3.webp
 toc: true
 mathjax: true

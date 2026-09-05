@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 9 目标检测、图像分割与可视化
 top: false
+hidden: false
 cover: images/cover_lecture9.webp
 toc: true
 mathjax: true

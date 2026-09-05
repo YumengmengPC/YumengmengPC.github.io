@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 11 大规模分布式训练
 top: false
+hidden: false
 cover: images/cover_lecture11.webp
 toc: true
 mathjax: true

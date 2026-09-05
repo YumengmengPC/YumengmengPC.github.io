@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 2 使用线性分类器进行图像分类
 top: false
+hidden: false
 cover: images/cover_lecture2.webp
 toc: true
 mathjax: true
