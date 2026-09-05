@@ -14,4 +14,23 @@ hexo.extend.filter.register('theme_inject', function (injects) {
 
   // 跨文档 View Transitions(阶段 C) 改用 scripts/view-transitions.js 的 after_render 注入
   // (stylus injects.variable 的 @view-transition 会被 css minify 按 browserslist 删除)
+
+  // 站点总访问量/访客数(不蒜子),注入页脚 status 区(footer.pug 的 shokax_inject('status'))。
+  // 每篇文章的访问量走 Waline(waline.pageview),不蒜子只补全站聚合 PV/UV。
+  // 容器初始 display:none,由不蒜子脚本取到数据后自动显示;取不到就保持隐藏,不阻塞页面。
+  if (hexo.theme.config.busuanzi?.enable) {
+    injects.status.raw('busuanzi-status', `
+span(id="busuanzi_container_site_pv" class="post-meta-item" style="display:none")
+    span(class="post-meta-item-icon")
+        i(class="ic i-eye")
+    != "总访问量 "
+    span(id="busuanzi_value_site_pv")
+span(id="busuanzi_container_site_uv" class="post-meta-item" style="display:none")
+    span(class="post-meta-item-icon")
+        i(class="ic i-user")
+    != "访客数 "
+    span(id="busuanzi_value_site_uv")
+script(async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
+`);
+  }
 });
