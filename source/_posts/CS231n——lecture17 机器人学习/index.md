@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 17 机器人学习
 top: false
+hidden: false
 cover: images/cover_lecture17.webp
 toc: true
 mathjax: true

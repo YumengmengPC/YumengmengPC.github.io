@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 5 基于CNN的图像分类
 top: false
+hidden: false
 cover: images/cover_lecture5.webp
 toc: true
 mathjax: true

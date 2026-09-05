@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 8 注意力机制与Transformers
 top: false
+hidden: false
 cover: images/cover_lecture8.webp
 toc: true
 mathjax: true

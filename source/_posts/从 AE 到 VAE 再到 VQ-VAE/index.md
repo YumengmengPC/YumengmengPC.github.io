@@ -1,6 +1,7 @@
 ---
 title: 从 AE 到 VAE 再到 VQ-VAE
 top: false
+hidden: false
 cover: images/cover_from_ae_to_vae_to_vq-vae.webp
 toc: true
 mathjax: true

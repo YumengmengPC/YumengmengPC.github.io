@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 15 三维视觉
 top: false
+hidden: false
 cover: images/cover_lecture15.webp
 toc: true
 mathjax: true

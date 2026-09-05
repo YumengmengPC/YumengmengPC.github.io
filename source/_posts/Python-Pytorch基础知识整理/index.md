@@ -1,6 +1,7 @@
 ---
 title: Python+Pytorch基础知识整理
 top: false
+hidden: false
 cover: images/cover_python_and_pytorch.webp
 toc: true
 mathjax: true

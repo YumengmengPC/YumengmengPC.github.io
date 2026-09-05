@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 12 自监督学习
 top: false
+hidden: false
 cover: images/cover_lecture12.webp
 toc: true
 mathjax: true
