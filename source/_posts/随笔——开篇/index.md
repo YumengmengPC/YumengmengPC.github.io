@@ -1,7 +1,7 @@
 ---
 title: 随笔——开篇
 top: false
-hidden: false
+hidden: true
 cover: false
 toc: true
 mathjax: false
