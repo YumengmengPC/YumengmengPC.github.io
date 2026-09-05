@@ -7,32 +7,42 @@ const GITHUB_USERNAME = "YumengmengPC";
 let cachedData = null;
 
 async function fetchAllData(username) {
-  const contribRes = await fetch(
-    `https://github-contributions-api.deno.dev/${username}.json`
-  );
+  // 构建期请求第三方 API:对方不可用不应拖垮整个部署(部署失败 = 全站停更)。
+  // 10s 超时 + 异常捕获,失败时降级为空数据,页面渲染空占位(肉眼可见,不属于静默类)。
+  try {
+    const contribRes = await fetch(
+      `https://github-contributions-api.deno.dev/${username}.json`,
+      { signal: AbortSignal.timeout(10_000) }
+    );
 
-  const data = {};
+    const data = {};
 
-  if (contribRes.ok) {
-    const c = await contribRes.json();
-    data.totalContributions = c.totalContributions;
-    if (Array.isArray(c.contributions)) {
-      const days = [];
-      c.contributions.forEach((week) => {
-        if (Array.isArray(week)) {
-          week.forEach((day) => {
-            days.push({
-              count: day.contributionCount || 0,
-              date: day.date || "",
+    if (contribRes.ok) {
+      const c = await contribRes.json();
+      data.totalContributions = c.totalContributions;
+      if (Array.isArray(c.contributions)) {
+        const days = [];
+        c.contributions.forEach((week) => {
+          if (Array.isArray(week)) {
+            week.forEach((day) => {
+              days.push({
+                count: day.contributionCount || 0,
+                date: day.date || "",
+              });
             });
-          });
-        }
-      });
-      data.days = days;
+          }
+        });
+        data.days = days;
+      }
+    } else {
+      console.warn(`github-stats: 贡献 API 返回 ${contribRes.status},本页渲染空占位`);
     }
-  }
 
-  return data;
+    return data;
+  } catch (e) {
+    console.warn(`github-stats: 拉取贡献数据失败(${e.message}),本页渲染空占位`);
+    return {};
+  }
 }
 
 hexo.extend.tag.register(
