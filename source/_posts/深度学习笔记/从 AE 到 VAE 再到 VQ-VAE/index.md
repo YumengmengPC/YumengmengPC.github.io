@@ -11,7 +11,7 @@ description: 浅谈一些个人对于AE及其优化版本模型的理解
 tags:
   - 生成模型
   - VAE
-categories:
+categories: [深度学习笔记]
   - 基础知识整理
 ---
 ## 前言
