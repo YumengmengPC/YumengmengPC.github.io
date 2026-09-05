@@ -5,7 +5,7 @@ hidden: false
 cover: images/cover_cs336_lecture1.webp
 toc: true
 mathjax: true
-date:
+date: 2026-09-05 09:22:44
 password:
 description: CS336 Lecture 1 笔记。
 tags: [CS336, 大语言模型, 深度学习, 分词]

@@ -5,7 +5,7 @@ cover: images/cover_cs224n_lecture1.webp
 hidden: true
 toc: true
 mathjax: true
-date:
+date: 2026-07-22 16:13:23
 password:
 description: CS224n Lecture 1 笔记。
 tags: [CS224n, 自然语言处理, 深度学习, 词向量]
