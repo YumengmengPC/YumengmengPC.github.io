@@ -2,6 +2,7 @@
 title: CS224n——Lecture 1 引言与词向量
 top: false
 cover: images/cover_cs224n_lecture1.webp
+hidden: true
 toc: true
 mathjax: true
 date:
