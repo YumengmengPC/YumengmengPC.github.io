@@ -12,8 +12,7 @@ tags:
   - Python
   - PyTorch
   - 深度学习
-categories:
-  - 基础知识整理
+categories: [深度学习笔记]
 ---
 
 ## 前言

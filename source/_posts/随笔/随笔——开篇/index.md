@@ -5,7 +5,7 @@ hidden: true
 cover: false
 toc: true
 mathjax: false
-date:
+date: 2026-09-05 12:43:19
 password:
 description: 随笔。
 tags: [随笔]
