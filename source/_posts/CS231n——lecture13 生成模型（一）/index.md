@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 13 生成模型（一）
 top: false
+hidden: false
 cover: images/cover_lecture13.webp
 toc: true
 mathjax: true

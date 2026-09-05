@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 10 视频理解
 top: false
+hidden: false
 cover: images/cover_lecture10.webp
 toc: true
 mathjax: true

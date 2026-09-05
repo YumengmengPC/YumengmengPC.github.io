@@ -1,6 +1,7 @@
 ---
 title: CS336——Lecture 1 概览与分词
 top: false
+hidden: false
 cover: false
 toc: true
 mathjax: true

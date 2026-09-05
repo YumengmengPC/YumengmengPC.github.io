@@ -1,6 +1,7 @@
 ---
 title: CS231n——Lecture 7 循环神经网络
 top: false
+hidden: false
 cover: images/cover_lecture7.webp
 toc: true
 mathjax: true
