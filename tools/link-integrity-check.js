@@ -64,6 +64,10 @@ const ALLOWED = new Set([
   '/tags/CS224n/',
   '/tags/自然语言处理/',
   '/tags/词向量/',
+  '/categories/CS336学习笔记/', // CS336 lecture 1（hidden）与 lecture 2 草稿（hidden），共用分类与标签
+  '/tags/CS336/',
+  '/tags/大语言模型/',
+  '/tags/分词/',
   '/categories/随笔/', // 随笔——开篇（hidden）
   '/tags/随笔/',
   '/404' // 主题 404 布局注入的自引用链接;Vercel 对任何 404 路径都以 public/404.html 兜底,实际可达
