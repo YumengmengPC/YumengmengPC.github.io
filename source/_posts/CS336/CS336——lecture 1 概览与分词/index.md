@@ -1,7 +1,7 @@
 ---
 title: CS336——Lecture 1 课程概览
 top: false
-hidden: false
+hidden: true
 cover: images/cover_cs336_lecture1.webp
 toc: true
 mathjax: true
