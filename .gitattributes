@@ -10,3 +10,6 @@
 *.ico  binary
 *.woff  binary
 *.woff2 binary
+
+# Windows 批处理入口保持 CRLF，保证 cmd 解析行为一致
+*.bat text eol=crlf
